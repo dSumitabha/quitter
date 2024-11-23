@@ -1,0 +1,44 @@
+[
+    {
+      "id": 1,
+      "username": "techSpace",
+      "image": "https://via.placeholder.com/150",
+      "bio": "Tech enthusiast"
+    },
+    {
+      "id": 2,
+      "username": "ecoExplorerJS",
+      "image": "https://via.placeholder.com/150",
+      "bio": "Nature lover"
+    },
+    {
+      "id": 3,
+      "username": "aiAdvocateSarah",
+      "image": "https://via.placeholder.com/150",
+      "bio": "Exploring the future of AI and Machine Learning"
+    },
+    {
+      "id": 4,
+      "username": "devDivaEmily",
+      "image": "https://via.placeholder.com/150",
+      "bio": "JavaScript wizard and web dev enthusiast"
+    },
+    {
+      "id": 5,
+      "username": "growthMasterAlex",
+      "image": "https://via.placeholder.com/150",
+      "bio": "Personal growth and productivity tips"
+    },
+    {
+      "id": 6,
+      "username": "uxDesignerLeo",
+      "image": "https://via.placeholder.com/150",
+      "bio": "Designing better user experiences"
+    },
+    {
+      "id": 7,
+      "username": "startupVisionaryRitesh",
+      "image": "https://via.placeholder.com/150",
+      "bio": "Building and scaling tech startups"
+    }
+  ]

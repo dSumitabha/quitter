@@ -1,0 +1,255 @@
+[
+    {
+      "id": 1,
+      "userId": 1,
+      "content": "Exploring the wonders of technology! The latest innovations in tech are changing the way we interact with the world.",
+      "likes": 15,
+      "createdAt": "2024-11-18"
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "content": "Nature is not just a place to visit, it's home. Let's work together to protect our environment and create a sustainable future.",
+      "likes": 28,
+      "createdAt": "2024-11-19"
+    },
+    {
+      "id": 3,
+      "userId": 3,
+      "content": "Artificial Intelligence is revolutionizing every industry. From healthcare to finance, AI is opening new doors for innovation and efficiency.",
+      "likes": 40,
+      "createdAt": "2024-11-20"
+    },
+    {
+      "id": 4,
+      "userId": 4,
+      "content": "JavaScript frameworks like React are transforming web development. Stay updated on the best practices for building dynamic web applications!",
+      "likes": 22,
+      "createdAt": "2024-11-21"
+    },
+    {
+      "id": 5,
+      "userId": 5,
+      "content": "Productivity isn't just about working harder—it's about working smarter. Time management tips and habit-forming techniques can skyrocket your personal growth.",
+      "likes": 18,
+      "createdAt": "2024-11-19"
+    },
+    {
+      "id": 6,
+      "userId": 6,
+      "content": "User experience is key to creating intuitive and engaging interfaces. Here’s how to apply the best UX/UI practices to your next design project.",
+      "likes": 25,
+      "createdAt": "2024-11-20"
+    },
+    {
+      "id": 7,
+      "userId": 7,
+      "content": "Building a tech startup requires more than just a great idea. From funding to scaling, here’s a look at the key steps every entrepreneur needs to take.",
+      "likes": 30,
+      "createdAt": "2024-11-21"
+    },
+    {
+    "id": 8,
+    "userId": 1,
+    "content": "Tech is constantly evolving, and so should our skills. Embrace the future with new technologies like quantum computing and blockchain!",
+    "likes": 34,
+    "createdAt": "2024-11-22"
+    },
+    {
+    "id": 9,
+    "userId": 2,
+    "content": "Every small action we take can make a big difference. Reduce, reuse, recycle—let's protect the planet for future generations!",
+    "likes": 27,
+    "createdAt": "2024-11-22"
+    },
+    {
+    "id": 10,
+    "userId": 3,
+    "content": "Machine learning isn't just for tech giants anymore. Startups are now using AI to personalize their services and predict market trends!",
+    "likes": 51,
+    "createdAt": "2024-11-23"
+    },
+    {
+    "id": 11,
+    "userId": 4,
+    "content": "Understanding the DOM is key to becoming a web development expert. Mastering it will give you the edge in building responsive websites.",
+    "likes": 19,
+    "createdAt": "2024-11-23"
+    },
+    {
+    "id": 12,
+    "userId": 5,
+    "content": "The Pomodoro technique is one of the best ways to increase productivity while avoiding burnout. Work smarter, not harder!",
+    "likes": 24,
+    "createdAt": "2024-11-24"
+    },
+    {
+    "id": 13,
+    "userId": 6,
+    "content": "A minimalist approach to design often results in the most elegant user experiences. Less is more in UI/UX!",
+    "likes": 37,
+    "createdAt": "2024-11-24"
+    },
+    {
+    "id": 14,
+    "userId": 7,
+    "content": "Securing funding for a tech startup is one of the toughest challenges. Here’s a guide to building an impressive pitch deck.",
+    "likes": 42,
+    "createdAt": "2024-11-25"
+    },
+    {
+    "id": 15,
+    "userId": 1,
+    "content": "5G technology will revolutionize industries ranging from healthcare to entertainment. Faster speeds, lower latency, and endless possibilities!",
+    "likes": 50,
+    "createdAt": "2024-11-25"
+    },
+    {
+    "id": 16,
+    "userId": 2,
+    "content": "The Amazon rainforest is not just home to thousands of species, it also plays a crucial role in balancing the global climate. Let's protect it.",
+    "likes": 31,
+    "createdAt": "2024-11-26"
+    },
+    {
+    "id": 17,
+    "userId": 3,
+    "content": "AI-driven chatbots are transforming customer service by providing instant responses and personalized interactions. The future is conversational!",
+    "likes": 60,
+    "createdAt": "2024-11-26"
+    },
+    {
+    "id": 18,
+    "userId": 4,
+    "content": "React hooks are changing the way we handle state and side effects in functional components. They're a must-know for modern JavaScript developers.",
+    "likes": 20,
+    "createdAt": "2024-11-27"
+    },
+    {
+    "id": 19,
+    "userId": 5,
+    "content": "Good habits are the foundation of productivity. Start your day with a clear plan and see how much more you can accomplish.",
+    "likes": 22,
+    "createdAt": "2024-11-27"
+    },
+    {
+    "id": 20,
+    "userId": 6,
+    "content": "Wireframes are essential in the early stages of UX design. They help clarify the structure of your website or app before diving into the details.",
+    "likes": 45,
+    "createdAt": "2024-11-28"
+    },
+    {
+    "id": 21,
+    "userId": 7,
+    "content": "Networking is critical for startup founders. Connecting with the right mentors and investors can significantly accelerate your growth.",
+    "likes": 38,
+    "createdAt": "2024-11-28"
+    },
+    {
+    "id": 22,
+    "userId": 1,
+    "content": "Artificial intelligence isn't just for large corporations—it's accessible to anyone with the right skills and tools. Start learning today!",
+    "likes": 55,
+    "createdAt": "2024-11-29"
+    },
+    {
+    "id": 23,
+    "userId": 2,
+    "content": "Sustainable fashion is becoming a major trend. Choosing eco-friendly brands helps reduce waste and supports a circular economy.",
+    "likes": 40,
+    "createdAt": "2024-11-29"
+    },
+    {
+    "id": 24,
+    "userId": 3,
+    "content": "AI is helping doctors make faster, more accurate diagnoses. It's incredible to see how technology is improving healthcare outcomes.",
+    "likes": 68,
+    "createdAt": "2024-11-30"
+    },
+    {
+    "id": 25,
+    "userId": 4,
+    "content": "Async/await makes asynchronous programming in JavaScript much cleaner and easier to understand. Here's a quick guide to get you started!",
+    "likes": 18,
+    "createdAt": "2024-11-30"
+    },
+    {
+    "id": 26,
+    "userId": 5,
+    "content": "Setting daily goals is one of the most effective ways to stay focused and accomplish more. Start each morning with a clear purpose.",
+    "likes": 33,
+    "createdAt": "2024-12-01"
+    },
+    {
+    "id": 27,
+    "userId": 6,
+    "content": "Dark mode is no longer just a trend—it's a usability feature. Many users prefer it because it reduces eye strain and saves battery life.",
+    "likes": 28,
+    "createdAt": "2024-12-01"
+    },
+    {
+    "id": 28,
+    "userId": 7,
+    "content": "Your startup's culture matters. A positive, inclusive, and transparent culture can attract the best talent and keep employees motivated.",
+    "likes": 35,
+    "createdAt": "2024-12-02"
+    },
+    {
+    "id": 29,
+    "userId": 1,
+    "content": "From autonomous vehicles to personalized medicine, AI and tech are making life safer and more efficient. The future is now!",
+    "likes": 40,
+    "createdAt": "2024-12-02"
+    },
+    {
+    "id": 30,
+    "userId": 2,
+    "content": "Every day is Earth Day if we live with intention. Reducing waste, using sustainable resources, and supporting green initiatives is a daily choice.",
+    "likes": 48,
+    "createdAt": "2024-12-03"
+    },
+    {
+    "id": 31,
+    "userId": 3,
+    "content": "Natural Language Processing (NLP) is one of the most exciting areas of AI, allowing machines to understand and generate human language.",
+    "likes": 58,
+    "createdAt": "2024-12-03"
+    },
+    {
+    "id": 32,
+    "userId": 4,
+    "content": "Don't forget about the importance of testing! Writing unit tests ensures your code is stable and scalable for future updates.",
+    "likes": 17,
+    "createdAt": "2024-12-04"
+    },
+    {
+    "id": 33,
+    "userId": 5,
+    "content": "A good morning routine sets the tone for a productive day. Try including exercise, meditation, or journaling in your start-of-day ritual.",
+    "likes": 44,
+    "createdAt": "2024-12-04"
+    },
+    {
+    "id": 34,
+    "userId": 6,
+    "content": "Prototyping is an essential part of UX design. It allows you to test ideas quickly, get feedback, and iterate before investing in development.",
+    "likes": 39,
+    "createdAt": "2024-12-05"
+    },
+    {
+    "id": 35,
+    "userId": 7,
+    "content": "Entrepreneurship requires resilience. You'll face setbacks, but staying focused and learning from failure is key to long-term success.",
+    "likes": 50,
+    "createdAt": "2024-12-05"
+    },
+    {
+    "id": 36,
+    "userId": 1,
+    "content": "The integration of AI into everyday tools like email, calendars, and productivity apps is streamlining work processes and boosting efficiency.",
+    "likes": 43,
+    "createdAt": "2024-12-06"
+    }
+  ]
+  
