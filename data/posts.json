@@ -250,6 +250,174 @@
     "content": "The integration of AI into everyday tools like email, calendars, and productivity apps is streamlining work processes and boosting efficiency.",
     "likes": 43,
     "createdAt": "2024-12-06"
-    }
+    },
+    {
+      "id": 37,
+      "userId": 1,
+      "content": "Continuous learning is essential in the fast-paced tech world. Stay curious and keep exploring new tools and methodologies.",
+      "likes": 38,
+      "createdAt": "2024-12-06"
+  },
+  {
+      "id": 38,
+      "userId": 2,
+      "content": "Time blocking can significantly improve your productivity. Allocate specific time slots for tasks to minimize distractions.",
+      "likes": 29,
+      "createdAt": "2024-12-07"
+  },
+  {
+      "id": 39,
+      "userId": 3,
+      "content": "Embracing failure is part of the entrepreneurial journey. Each setback is an opportunity to learn and grow.",
+      "likes": 46,
+      "createdAt": "2024-12-07"
+  },
+  {
+      "id": 40,
+      "userId": 4,
+      "content": "Incorporating user feedback early in the design process can lead to better products and higher user satisfaction.",
+      "likes": 31,
+      "createdAt": "2024-12-08"
+  },
+  {
+      "id": 41,
+      "userId": 5,
+      "content": "Networking isn't just about job hunting; it's about building relationships that can lead to future collaborations.",
+      "likes": 27,
+      "createdAt": "2024-12-08"
+  },
+  {
+      "id": 42,
+      "userId": 6,
+      "content": "Remote work can improve work-life balance, but setting boundaries is crucial to avoid burnout.",
+      "likes": 34,
+      "createdAt": "2024-12-09"
+  },
+  {
+      "id": 43,
+      "userId": 7,
+      "content": "Storytelling is a powerful tool in marketing. It helps create an emotional connection with your audience.",
+      "likes": 39,
+      "createdAt": "2024-12-09"
+  },
+  {
+      "id": 44,
+      "userId": 1,
+      "content": "The importance of mental health cannot be overstated. Take time for self-care and prioritize your well-being.",
+      "likes": 45,
+      "createdAt": "2024-12-10"
+  },
+  {
+      "id": 45,
+      "userId": 2,
+      "content": "Understanding your audience is key to effective communication. Tailor your message to their needs and preferences.",
+      "likes": 36,
+      "createdAt": "2024-12-10"
+  },
+  {
+      "id": 46,
+      "userId": 3,
+      "content": "Having a mentor can accelerate your personal and professional growth. Seek guidance from someone you admire.",
+      "likes": 52,
+      "createdAt": "2024-12-11"
+  },
+  {
+      "id": 47,
+      "userId": 4,
+      "content": "Sustainability in business is not just a trend—it's a necessity. Make eco-friendly choices to benefit future generations.",
+      "likes": 41,
+      "createdAt": "2024-12-11"
+  },
+  {
+      "id": 48,
+      "userId": 5,
+      "content": "Gratitude can enhance your mindset and improve your overall happiness. Take a moment each day to reflect on what you're thankful for.",
+      "likes": 49,
+      "createdAt": "2024-12-12"
+  },
+  {
+      "id": 49,
+      "userId": 6,
+      "content": "Effective leaders empower their teams. Foster a culture where everyone feels valued and heard.",
+      "likes": 40,
+      "createdAt": "2024-12-12"
+  },
+  {
+      "id": 50,
+      "userId": 7,
+      "content": "Keeping up with industry trends is crucial for staying relevant. Subscribe to newsletters and attend webinars regularly.",
+      "likes": 55,
+      "createdAt": "2024-12-13"
+  },
+  {
+      "id": 51,
+      "userId": 1,
+      "content": "Collaboration tools can enhance team productivity. Choose the right tools that fit your team's workflow.",
+      "likes": 47,
+      "createdAt": "2024-12-13"
+  },
+  {
+      "id": 52,
+      "userId": 2,
+      "content": "Mindfulness practices can improve focus and reduce stress. Consider incorporating meditation or breathing exercises into your routine.",
+      "likes": 33,
+      "createdAt": "2024-12-14"
+  },
+  {
+      "id": 53,
+      "userId": 3,
+      "content": "Diversity in the workplace fosters creativity and innovation. Embrace different perspectives to enhance your team.",
+      "likes": 56,
+      "createdAt": "2024-12-14"
+  },
+  {
+      "id": 54,
+      "userId": 4,
+      "content": "A clear vision and mission can guide your startup's direction. Make sure your team is aligned with your core values.",
+      "likes": 37,
+      "createdAt": "2024-12-15"
+  },
+  {
+      "id": 55,
+      "userId": 5,
+      "content": "Investing in employee development leads to higher retention rates. Offer training and growth opportunities for your team.",
+      "likes": 50,
+      "createdAt": "2024-12-15"
+  },
+  {
+      "id": 56,
+      "userId": 6,
+      "content": "AI can augment creativity, not replace it. Use technology to enhance your creative processes and brainstorm new ideas.",
+      "likes": 48,
+      "createdAt": "2024-12-16"
+  },
+  {
+      "id": 57,
+      "userId": 7,
+      "content": "Building an online presence is essential for any business. Leverage social media to connect with your audience.",
+      "likes": 42,
+      "createdAt": "2024-12-16"
+  },
+  {
+    "id": 58,
+    "userId": 1,
+    "content": "Setting boundaries is crucial for maintaining work-life balance. Don’t be afraid to say no to protect your time.",
+    "likes": 39,
+    "createdAt": "2024-12-17"
+},
+{
+    "id": 59,
+    "userId": 2,
+    "content": "Visual storytelling can make your message more engaging. Use images and videos to complement your content.",
+    "likes": 44,
+    "createdAt": "2024-12-17"
+},
+{
+    "id": 60,
+    "userId": 3,
+    "content": "Regular feedback loops can enhance team performance. Create a culture of open communication and continuous improvement.",
+    "likes": 51,
+    "createdAt": "2024-12-18"
+}
   ]
   
