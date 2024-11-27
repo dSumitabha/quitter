@@ -1,24 +1,25 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
 
-export async function GET() {
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+import { callGeminiAPI } from '../../utils/gemini';
 
-  const prompt = "Machine Lerarning";
-
+export async function POST(req) {
   try {
-    const result = await model.generateContent(prompt);
-    const responseText = result.response.text();  // Extract generated text
+    const { topics } = await req.json();
+    console.log("Received topics:", topics);
 
-    return new Response(JSON.stringify({ content: responseText }), {
-      headers: { "Content-Type": "application/json" },
-      status: 200,
-    });
+    if (!Array.isArray(topics) || topics.length !== 5) {
+      return new Response(JSON.stringify({ error: "Provide exactly 5 topics." }), { status: 400 });
+    }
+
+    // Call the Gemini API
+    const prompt = `Generate 5 factual posts...`;  // Simplified for now
+    console.log("Prompt for Gemini:", prompt);
+
+    const apiResponse = await callGeminiAPI(prompt);
+    console.log("Gemini API response:", apiResponse);
+
+    return new Response(JSON.stringify(apiResponse), { status: 200 });
   } catch (error) {
-    console.error("Error fetching content from Gemini:", error);
-    return new Response(JSON.stringify({ error: "Failed to fetch content from Gemini" }), {
-      headers: { "Content-Type": "application/json" },
-      status: 500,
-    });
+    console.error("Error in generate/route.js:", error);
+    return new Response(JSON.stringify({ error: "Internal Server Error" }), { status: 500 });
   }
 }
