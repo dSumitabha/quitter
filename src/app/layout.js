@@ -1,5 +1,4 @@
 import NavBar from "./components/NavigationBar";
-import AIFetchTester from "./components/AIFetchTester";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -24,7 +23,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <NavBar />
-        <AIFetchTester />
+        {children}
       </body>
     </html>
   );
