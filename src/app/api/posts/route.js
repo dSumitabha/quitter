@@ -1,42 +1,35 @@
-import { promises as fs } from 'fs';
-import path from 'path';
+import { promises as fs } from "fs";
+import path from "path";
 
 export async function GET(request) {
+  const { searchParams } = new URL(request.url);
+  
+  // Query parameters
+  const page = parseInt(searchParams.get("page") || "1");
+  const limit = parseInt(searchParams.get("limit") || "10");
+  const source = parseInt(searchParams.get("source") || "0"); // 0: stored, 1: AI
+  
   try {
-    // Get the page from URL params
-    const { searchParams } = new URL(request.url);
-    const page = Number(searchParams.get('page')) || 1;
-    const limit = 10; // Posts per page
-    
-    // Calculate start and end indices
-    const start = (page - 1) * limit;
-    const end = start + limit;
+    const postsFilePath = path.join(process.cwd(), "data", "posts.json");
+    const data = await fs.readFile(postsFilePath, "utf-8");
+    const allPosts = JSON.parse(data);
 
-    // Read posts from JSON file
-    const filePath = path.join(process.cwd(), 'data', 'posts.json');
-    const jsonData = await fs.readFile(filePath, 'utf8');
-    const allPosts = JSON.parse(jsonData);
-    
-    // Slice the posts for current page
-    const paginatedPosts = allPosts.slice(start, end);
-    
-    // Add total pages info
-    const response = {
-      posts: paginatedPosts,
-      totalPosts: allPosts.length,
-      currentPage: page,
-      totalPages: Math.ceil(allPosts.length / limit)
-    };
+    // Filter posts based on the source parameter
+    const filteredPosts = allPosts.filter(post => post.source === source);
 
-    return new Response(JSON.stringify(response), {
-      headers: { "Content-Type": "application/json" },
+    // Paginate the filtered posts
+    const startIndex = (page - 1) * limit;
+    const paginatedPosts = filteredPosts.slice(startIndex, startIndex + limit);
+
+    return new Response(JSON.stringify({ posts: paginatedPosts, total: filteredPosts.length, page }), {
       status: 200,
-    });
-
-  } catch (error) {
-    return new Response(JSON.stringify({ error: 'Failed to load posts' }), {
       headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    console.error("Error fetching posts:", error);
+    return new Response(JSON.stringify({ error: "Failed to fetch posts" }), {
       status: 500,
+      headers: { "Content-Type": "application/json" },
     });
   }
 }

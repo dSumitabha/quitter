@@ -1,21 +1,22 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// Initialize Gemini API client
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+export async function callGeminiAPI(topics) {
+  const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-/**
- * Calls the Gemini API with a given prompt.
- * @param {string} prompt - The prompt to send to the API.
- * @returns {Promise<string>} - The raw response text from the Gemini API.
- */
+  // Create a simple prompt using the provided topics
+  const prompt = `Write posts on behalf of them, each within 24 words: ${Object.keys(topics).join(', ')}`;
 
-export async function callGeminiAPI(prompt) {
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const result = await model.generateContent(prompt);
-    return result.response.text();  // Returns the raw text
+    const response = result.response.candidates[0].content.parts[0].text;
+
+    // Directly parse the JSON response, even if it's unexpected
+    const posts = JSON.parse(response);
+
+    return posts; // Return the JSON array of posts
   } catch (error) {
-    console.error("Gemini API Error:", error);
-    throw new Error("Failed to fetch data from Gemini.");
+    console.error("Error generating posts:", error);
+    throw error;
   }
 }

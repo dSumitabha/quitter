@@ -12,15 +12,16 @@ const AIFetchTester = () => {
     setError(null);
   
     try {
-      const topics = ["Technology", "Health", "Sports", "Science", "Travel"];
-      console.log("Sending request to /api/generate with topics:", topics);
+      console.log("Sending request to /api/generate (no topics needed)");
   
-      const response = await fetch("/api/gemini", {
+      // Send the POST request to /api/generate without topics in the body
+      const response = await fetch("/api/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ topics }),
+        // No need to send topics anymore
+        body: JSON.stringify({}),
       });
   
       console.log("Response status:", response.status);
@@ -31,7 +32,9 @@ const AIFetchTester = () => {
   
       const data = await response.json();
       console.log("Received data:", data);
-      setPosts(data);
+  
+      // Assuming the data contains the posts you want to display
+      setPosts(data.posts); // Adjust based on the actual response structure
     } catch (err) {
       console.error("Fetch error:", err);
       setError(err.message || "Something went wrong!");
@@ -39,6 +42,7 @@ const AIFetchTester = () => {
       setLoading(false);
     }
   };
+  
   
 
   return (

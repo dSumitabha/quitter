@@ -1,25 +1,30 @@
+import { GoogleGenerativeAI } from '@google/generative-ai';
+import Result from 'postcss/lib/result';
 
-import { callGeminiAPI } from '../../utils/gemini';
 
-export async function POST(req) {
+export async function GET() {
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+  const topics = { techSpace: true, ecoExplorerJS: true, aiAdvocateSarah: true, devDivaEmily: true, growthMasterAlex: true };
+
+  // Create a simple prompt using the provided topics
+  const prompt = `Return an JSON array of 5 jokes, within 20 words.`;
+
   try {
-    const { topics } = await req.json();
-    console.log("Received topics:", topics);
+    let result = await model.generateContent(prompt);
 
-    if (!Array.isArray(topics) || topics.length !== 5) {
-      return new Response(JSON.stringify({ error: "Provide exactly 5 topics." }), { status: 400 });
-    }
+    const jokes = result.response.candidates[0].content.parts[0].text;
 
-    // Call the Gemini API
-    const prompt = `Generate 5 factual posts...`;  // Simplified for now
-    console.log("Prompt for Gemini:", prompt);
 
-    const apiResponse = await callGeminiAPI(prompt);
-    console.log("Gemini API response:", apiResponse);
-
-    return new Response(JSON.stringify(apiResponse), { status: 200 });
+    return new Response(JSON.stringify(jokes), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
   } catch (error) {
-    console.error("Error in generate/route.js:", error);
-    return new Response(JSON.stringify({ error: "Internal Server Error" }), { status: 500 });
+    console.error("Error generating posts:", error);
+    return new Response(JSON.stringify({ error: 'Failed to generate posts' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 }

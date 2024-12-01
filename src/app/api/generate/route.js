@@ -1,62 +1,33 @@
-import { promises as fs } from 'fs';
-import path from 'path';
-import { callGeminiAPI } from '../../utils/gemini';  // Import the Gemini interaction module
+import { callGeminiAPI } from "../../utils/gemini";
+import { promises as fs } from "fs";
+import path from "path";
 
-export async function POST(req) {
+export async function POST() {
   try {
-    const { topics } = await req.json(); // Expecting topics array in request body
-    if (!Array.isArray(topics) || topics.length !== 5) {
-      return new Response(JSON.stringify({ error: "Provide exactly 5 topics." }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
 
-    // Load existing users
-    const usersData = await fs.readFile(path.join(process.cwd(), 'data', 'users.json'), 'utf8');
-    const users = JSON.parse(usersData);
+    //Define the topics to be prompted
+    const topics = { techSpace: true, ecoExplorerJS: true, aiAdvocateSarah: true, devDivaEmily: true, growthMasterAlex: true };
+    // Generate new posts using the Gemini API
+    const newPosts = await callGeminiAPI(topics); // Fetches posts from Gemini API
 
-    // Assign users to topics randomly
-    const assignedTopics = topics.map((topic, index) => ({
-      topic,
-      userId: users[index % users.length].id, // Cycle through users
-    }));
+    // Load existing posts from the file
+    //const postsFilePath = path.join(process.cwd(), "data", "posts.json");
+    //const data = await fs.readFile(postsFilePath, "utf-8");
+    //const existingPosts = JSON.parse(data);
 
-    // Prepare the prompt for Gemini
-    const prompt = `
-      Generate 5 factual posts, each 24 words, based on these topics. Return a JSON array of objects with 'content' only.
-      Topics: ${assignedTopics.map(t => t.topic).join(", ")}
-    `;
+    // Append new posts to the existing ones
+   // const updatedPosts = [...newPosts, ...existingPosts];
 
-    // Call the Gemini API
-    const apiResponse = await callGeminiAPI(prompt);
-    const postsFromAI = JSON.parse(apiResponse);
+    // Save the updated post list back to the file
+    //await fs.writeFile(postsFilePath, JSON.stringify(updatedPosts, null, 2));
 
-    // Load existing posts
-    const postsData = await fs.readFile(path.join(process.cwd(), 'data', 'posts.json'), 'utf8');
-    const posts = JSON.parse(postsData);
-
-    // Map AI responses to users and add metadata
-    const newPosts = postsFromAI.map((post, index) => ({
-      id: posts.length + index + 1,
-      userId: assignedTopics[index].userId,
-      content: post.content,
-      likes: Math.floor(Math.random() * 40) + 10, // Randomize likes
-      createdAt: new Date().toISOString().split('T')[0], // Today's date
-    }));
-
-    // Update posts.json with new posts
-    posts.push(...newPosts);
-    await fs.writeFile(path.join(process.cwd(), 'data', 'posts.json'), JSON.stringify(posts, null, 2));
-
-    // Return the new posts
-    return new Response(JSON.stringify(newPosts), {
+    return new Response(JSON.stringify({ message: "Posts generated successfully", posts: newPosts }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
   } catch (error) {
-    console.error("Error in route:", error);
-    return new Response(JSON.stringify({ error: "Internal Server Error" }), {
+    console.error("Error generating posts:", error);
+    return new Response(JSON.stringify({ error: "Failed to generate posts" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });
