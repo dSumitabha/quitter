@@ -31,7 +31,7 @@ const Feed = () => {
       const { posts: newPosts, totalPages, currentPage } = await response.json();
       const usersData = await usersResponse.json();
   
-      console.log("Fetched posts:", newPosts); // Log the fetched posts
+      console.log("Fetched posts:", totalPages); // Log the fetched posts
       setPosts((prevPosts) => {
         let updatedPosts = [...prevPosts, ...newPosts];
         if (updatedPosts.length > POSTS_TO_KEEP) {

@@ -8,7 +8,7 @@ const Page = () => {
   return (
     <div>
       {/* You can add other elements like a header, footer, etc. here */}
-      <AIFetchTester />
+      <Feed />
     </div>
   );
 };
