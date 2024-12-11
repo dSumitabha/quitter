@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Post from './Post';
 
 const AIFetchTester = () => {
   const [posts, setPosts] = useState([]);
@@ -31,10 +32,12 @@ const AIFetchTester = () => {
       }
   
       const data = await response.json();
-      console.log("Received data:", data);
+      console.log("Received data:", data.posts);
   
       // Assuming the data contains the posts you want to display
       setPosts(data.posts); // Adjust based on the actual response structure
+      console.log(posts);
+      
     } catch (err) {
       console.error("Fetch error:", err);
       setError(err.message || "Something went wrong!");
@@ -57,17 +60,21 @@ const AIFetchTester = () => {
 
       {error && <p className="text-red-500 mt-4">{error}</p>}
 
-      <ul className="mt-4">
-        {posts.length > 0 ? (
-          posts.map((post, index) => (
-            <li key={index} className="mb-2 p-2 border-b">
-              {post.content}
-            </li>
-          ))
-        ) : (
-          !loading && <p className="text-gray-500 mt-4">No posts fetched yet.</p>
-        )}
-      </ul>
+      {posts.length > 0 ? (
+        posts.map((post, index) => (
+          <Post
+            key={index}
+            username={post.author || "Unknown Author"} // Map 'author' to 'username'
+            content={post.post || "No content available"} // Map 'post' to 'content'
+            likes={0} // Default value for likes
+            createdAt={new Date().toISOString()} // Placeholder for createdAt
+            image="https://via.placeholder.com/150" // Placeholder image URL
+            isNew={false} // Default value for isNew
+          />
+        ))
+      ) : (
+        !loading && <p className="text-gray-500 mt-4">No posts fetched yet.</p>
+      )}
     </div>
   );
 };
