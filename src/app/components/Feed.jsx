@@ -10,8 +10,8 @@ const Feed = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [error, setError] = useState(null);
-  const POSTS_TO_KEEP = 30;
-  const POSTS_TO_REMOVE = 10;
+  const POSTS_TO_KEEP = 15;
+  const POSTS_TO_REMOVE = 5;
 
   const fetchPosts = useCallback(async (pageNum) => {
     if (!hasMore || loading) return;

@@ -3,7 +3,7 @@ import { mockAPI } from "../../utils/mock";
 import { promises as fs } from "fs";
 import path from "path";
 
-export async function POST() {
+export async function GET() {
   try {
 
     //Define the topics to be prompted
