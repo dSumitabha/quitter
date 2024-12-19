@@ -1,53 +1,45 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
 const useIntersection = (onIntersect, loading) => {
   const observerRef = useRef(null);
+  const currentObserver = useRef(null);
+
+  const observerCallback = useCallback(([entry]) => {
+    if (entry.isIntersecting && !loading) {
+      console.log('📍 Intersection detected and loading is false - triggering load');
+      onIntersect();
+    } else {
+      console.log('ℹ️ Skip intersection:', 
+        entry.isIntersecting ? 'loading in progress' : 'not intersecting');
+    }
+  }, [onIntersect, loading]);
 
   useEffect(() => {
-    console.log('useIntersection hook initialized', { 
-      loading, 
-      observerRef: observerRef.current 
-    });
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        console.log('🚦 Intersection Observer triggered', {
-          isIntersecting: entry.isIntersecting,
-          loading: loading,
-          intersectionRatio: entry.intersectionRatio
-        });
-
-        if (entry.isIntersecting && !loading) {
-          console.log(' Conditions met: Calling onIntersect');
-          onIntersect();
-        } else {
-          console.log(' Intersection conditions not met', {
-            isIntersecting: entry.isIntersecting,
-            loading: loading
-          });
-        }
-      },
-      { 
-        root: null, 
-        rootMargin: "0px", 
-        threshold: 1.0 
-      }
-    );
-
-    if (observerRef.current) {
-      console.log(' Observing element', observerRef.current);
-      observer.observe(observerRef.current);
-    } else {
-      console.warn(' No current element to observe');
+    // Only create a new observer if we don't have one
+    if (!currentObserver.current) {
+      currentObserver.current = new IntersectionObserver(observerCallback, {
+        root: null,
+        rootMargin: "400px",
+        threshold: 0
+      });
+      
+      console.log('🔧 Created new IntersectionObserver');
     }
 
+    // If we have an element to observe, start observing
+    if (observerRef.current) {
+      console.log('👀 Starting observation of element');
+      currentObserver.current.observe(observerRef.current);
+    }
+
+    // Cleanup function
     return () => {
-      console.log('🧹 Cleanup: Stopping observation');
-      if (observerRef.current) {
-        observer.unobserve(observerRef.current);
+      if (observerRef.current && currentObserver.current) {
+        console.log('🧹 Cleaning up observation');
+        currentObserver.current.unobserve(observerRef.current);
       }
     };
-  }, [loading, onIntersect]);
+  }, [observerCallback]); // Only re-run if the callback changes
 
   return observerRef;
 };

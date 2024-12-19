@@ -6,7 +6,7 @@ import TriggerApiButton from "./components/TriggerApiButton"
 
 const Page = () => {
   return (
-    <div>
+    <div className="pb-32">
       {/* You can add other elements like a header, footer, etc. here */}
       <Feed />
     </div>
