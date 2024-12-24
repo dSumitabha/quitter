@@ -22,7 +22,6 @@ export async function callGeminiAPI(topics) {
 
     // Directly parse the JSON response, even if it's unexpected
     const posts = JSON.parse(cleanedResponse);
-    console.log("Using mock response for debugging.");
     return posts; // Return the JSON array of posts
   } catch (error) {
     console.error("Error generating posts:", error);

@@ -28,7 +28,12 @@ export async function GET() {
     //  throw new Error("Expected an array of posts");
     //}
     console.log("Posts generated successfully:", newPosts);
-    return new Response(JSON.stringify({ message: "Posts generated successfully", posts: newPosts }), {
+    return new Response(JSON.stringify({ 
+        message: "Posts generated successfully",
+        posts: newPosts ,
+        totalPages: 2,
+        currentPage: 1
+      }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });

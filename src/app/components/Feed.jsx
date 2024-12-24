@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import Post from "./Post";
 
 const Feed = () => {
@@ -18,13 +18,14 @@ const Feed = () => {
     
     setLoading(true);
     try {
-      const response = await fetch(`/api/posts?page=${pageNum}`);
+      const response = await fetch(`/api/generate`);
       const usersResponse = await fetch("/api/users");
   
       if (!response.ok || !usersResponse.ok) {
         throw new Error('Failed to fetch data');
       }
-  
+
+
       const { posts: newPosts, totalPages, currentPage } = await response.json();
       console.log( totalPages, currentPage);
       const usersData = await usersResponse.json();
@@ -58,25 +59,26 @@ const Feed = () => {
   }, [page, fetchPosts]);
 
   // Memoize enriched posts
-  const enrichedPosts = React.useMemo(() => {
+   // Now posts already contain name and post content directly
+   const enrichedPosts = useMemo(() => {
     return posts.map((post) => ({
       ...post,
-      user: users.find((u) => u.id === post.userId) || 
-            { username: "Unknown", image: "/default-avatar.png" }
+      username: post.name, // Map name to username if needed
+      content: post.post   // Map post to content if needed
     }));
-  }, [posts, users]);
+  }, [posts]);
 
   return (
     <div className="max-w-md mx-auto mt-4">
-      {enrichedPosts.map((post) => (
+      {enrichedPosts.map((post, index) => (
         <Post
-          key={`${post.id}-${post.user.username}`}
-          username={post.user.username}
+          key={`${post.name}-${index}`}
+          username={post.name}
           content={post.content}
-          likes={post.likes}
+          likes={0}
           createdAt={post.createdAt}
-          image={post.user.image}
-          source={post.source}
+          
+          source={0}
         />
       ))}
       
