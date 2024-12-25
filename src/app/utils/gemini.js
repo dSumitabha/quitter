@@ -21,7 +21,14 @@ export async function callGeminiAPI(topics) {
     .trim(); // Remove unnecessary whitespace or newlines
 
     // Directly parse the JSON response, even if it's unexpected
-    const posts = JSON.parse(cleanedResponse);
+    let posts = JSON.parse(cleanedResponse);
+  // Add the "createdAt" field to each post
+  posts = posts.map(post => ({
+    ...post,
+    createdAt: new Date().toISOString() // Current timestamp in ISO format
+  }));
+
+    console.log(posts)
     return posts; // Return the JSON array of posts
   } catch (error) {
     console.error("Error generating posts:", error);

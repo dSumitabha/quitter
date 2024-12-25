@@ -1,7 +1,28 @@
 import React from "react";
+import dayjs from 'dayjs';
+import isToday from 'dayjs/plugin/isToday';
+import isYesterday from 'dayjs/plugin/isYesterday';
+
 import LikeButton from "./LikeButton";
 
 const Post = ({ username, content, likes, createdAt, image, isNew }) => {
+
+  // Extend dayjs with the plugins
+  dayjs.extend(isToday);
+  dayjs.extend(isYesterday);
+
+  const formattedDate = (createdAt) => {
+    const date = dayjs(createdAt);
+    
+    if (date.isToday()) {
+      return `Today, ${date.format('hh:mm a')}`; // Today, 11:09 am
+    } else if (date.isYesterday()) {
+      return `Yesterday, ${date.format('hh:mm a')}`; // Yesterday, 10:20 am
+    } else {
+      return date.format('DD-MM-YY'); // 20-12-24
+    }
+  };
+
   const handleLikeChange = (newLikeCount) => {
     console.log(`${username}'s post now has ${newLikeCount} likes.`);
     // Optional: Sync this new like count with the backend if needed
@@ -22,7 +43,7 @@ const Post = ({ username, content, likes, createdAt, image, isNew }) => {
             {isNew && <span className="text-yellow-500 ml-2">✨</span>}
           </p>
           <p className="text-xs text-gray-500">
-            {new Date(createdAt).toDateString()}
+            {formattedDate(createdAt)}
           </p>
         </div>
       </div>
