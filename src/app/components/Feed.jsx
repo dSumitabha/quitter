@@ -76,7 +76,7 @@ const Feed = () => {
       {enrichedPosts.map((post, index) => (
         <Post
           key={`${post.name}-${index}`}
-          username={post.user.username}
+          username={post.author}
           content={post.content}
           likes={post.likes}
           createdAt={post.createdAt}
