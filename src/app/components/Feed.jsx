@@ -80,7 +80,8 @@ const Feed = () => {
           content={post.content}
           likes={post.likes}
           createdAt={post.createdAt}
-          image={post.user.image}          
+          image={post.user.image}
+          bio={post.user.bio}          
           source={0}
         />
       ))}

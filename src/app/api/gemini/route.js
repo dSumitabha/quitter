@@ -5,7 +5,7 @@ import Result from 'postcss/lib/result';
 export async function GET() {
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
   const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-  const topics = { techSpace: true, ecoExplorerJS: true, aiAdvocateSarah: true, devDivaEmily: true, growthMasterAlex: true };
+  const topics = { techSpace: true, ecoExplorer: true, aiAdvocateSarah: true, devDivaEmily: true, growthMasterAlex: true };
 
   // Create a simple prompt using the provided topics
   const prompt = `Return an JSON array of 5 jokes, within 20 words.`;

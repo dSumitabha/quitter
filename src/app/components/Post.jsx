@@ -1,11 +1,12 @@
 import React from "react";
+import Image from 'next/image';
 import dayjs from 'dayjs';
 import isToday from 'dayjs/plugin/isToday';
 import isYesterday from 'dayjs/plugin/isYesterday';
 
 import LikeButton from "./LikeButton";
 
-const Post = ({ username, content, likes, createdAt, image, isNew }) => {
+const Post = ({ username, content, likes, createdAt, image, bio, isNew }) => {
 
   // Extend dayjs with the plugins
   dayjs.extend(isToday);
@@ -32,13 +33,15 @@ const Post = ({ username, content, likes, createdAt, image, isNew }) => {
     <div className="p-4 border-b border-gray-200 my-2 bg-white shadow-sm">
       {/* User Info */}
       <div className="flex items-center mb-2">
-        <img
-          src={image}
+        <Image
+          src={`/avatar/${image}`}
           alt={`${username}'s profile`}
+          width={40}
+          height={40}
           className="w-10 h-10 rounded-full mr-3"
         />
         <div>
-          <p className="font-semibold text-gray-700 flex items-center">
+          <p className="font-semibold text-gray-700 flex items-center" title={bio}>
             {username}
             {isNew && <span className="text-yellow-500 ml-2">✨</span>}
           </p>
