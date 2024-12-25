@@ -25,10 +25,10 @@ export async function callGeminiAPI(topics) {
   // Add the "createdAt" field to each post
   posts = posts.map(post => ({
     ...post,
-    createdAt: new Date().toISOString() // Current timestamp in ISO format
+    createdAt: new Date().toISOString(), // Current timestamp in ISO format
+    likes : 0
   }));
 
-    console.log(posts)
     return posts; // Return the JSON array of posts
   } catch (error) {
     console.error("Error generating posts:", error);

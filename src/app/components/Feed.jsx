@@ -60,24 +60,27 @@ const Feed = () => {
 
   // Memoize enriched posts
    // Now posts already contain name and post content directly
-   const enrichedPosts = useMemo(() => {
+  const enrichedPosts = useMemo(() => {
     return posts.map((post) => ({
       ...post,
-      username: post.name, // Map name to username if needed
-      content: post.post   // Map post to content if needed
+      //username: post.author, // Map name to username if needed
+      content: post.post,   // Map post to content if needed
+      user: users.find((u) => u.username === post.author) || 
+      { username: post.author, image: "/default-avatar.png" }
     }));
   }, [posts]);
+  console.log(enrichedPosts)
 
   return (
     <div className="max-w-md mx-auto mt-4">
       {enrichedPosts.map((post, index) => (
         <Post
           key={`${post.name}-${index}`}
-          username={post.name}
+          username={post.user.username}
           content={post.content}
-          likes={0}
+          likes={post.likes}
           createdAt={post.createdAt}
-          
+          image={post.user.image}          
           source={0}
         />
       ))}
