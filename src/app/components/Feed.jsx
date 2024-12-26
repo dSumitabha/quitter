@@ -59,11 +59,11 @@ const Feed = () => {
   }, [page, fetchPosts]);
 
   // Memoize enriched posts
-   // Now posts already contain name and post content directly
+  // Now posts already contain name and post content directly
+
   const enrichedPosts = useMemo(() => {
     return posts.map((post) => ({
       ...post,
-      //username: post.author, // Map name to username if needed
       content: post.post,   // Map post to content if needed
       user: users.find((u) => u.username === post.author) || 
       { username: post.author, image: "/default-avatar.png" }
