@@ -1,13 +1,14 @@
 import { callGeminiAPI } from "../../utils/gemini";
-import { mockAPI } from "../../utils/mock";
-import { promises as fs } from "fs";
-import path from "path";
+import { selectTopics } from "../../utils/topicSelector";
+
+
 
 export async function GET() {
   try {
 
     //Define the topics to be prompted
-    const topics = { techSpace: true, ecoExplorer: true, aiAdvocateSarah: true, devDivaEmily: true, growthMasterAlex: true };
+    const topics = selectTopics();
+
     // Generate new posts using the Gemini API
     const newPosts = await callGeminiAPI(topics); // Fetches posts from Gemini API
 

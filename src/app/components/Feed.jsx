@@ -1,7 +1,10 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useMemo } from "react";
+
+
 import Post from "./Post";
+
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
@@ -83,7 +86,7 @@ const Feed = () => {
           createdAt={post.createdAt}
           image={post.user.image}
           bio={post.user.bio}          
-          source={0}
+          isNew={true}
         />
       ))}
       
