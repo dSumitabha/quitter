@@ -69,6 +69,7 @@ const Feed = () => {
       { username: post.author, image: "/default-avatar.png" }
     }));
   }, [posts]);
+  
   console.log(enrichedPosts)
 
   return (

@@ -4,7 +4,10 @@ export async function callGeminiAPI(topics) {
   console.log("Calling Gemini API...");
 
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const model = genAI.getGenerativeModel({ 
+          model: "gemini-1.5-flash",
+          systemInstruction: "Always use the key 'author' to indicate the person who wrote the post. Never use 'user'."
+   });
   const prompt = `Write posts on behalf of them, each within 24 words: ${Object.keys(topics).join(", ")}. The response must be a JSON array. Don't use emoji.`;
 
   //const prompt = `Return an JSON array of 5 jokes, within 20 words.`;
@@ -26,7 +29,7 @@ export async function callGeminiAPI(topics) {
   posts = posts.map(post => ({
     ...post,
     createdAt: new Date().toISOString(), // Current timestamp in ISO format
-    likes : 0
+    likes : 0,
   }));
 
     return posts; // Return the JSON array of posts
