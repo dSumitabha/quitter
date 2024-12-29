@@ -11,7 +11,7 @@ export async function GET() {
     //Define the topics to be prompted
     //const topics = { techSpace: true, ecoExplorer: true, aiAdvocateSarah: true, devDivaEmily: true, growthMasterAlex: true };
     const topics = selectTopics();
-
+    console.log(topics);
     // Generate new posts using the Gemini API
     const newPosts = await callGeminiAPI(topics); // Fetches posts from Gemini API
 

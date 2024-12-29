@@ -25,12 +25,13 @@ export async function callGeminiAPI(topics) {
 
     // Directly parse the JSON response, even if it's unexpected
     let posts = JSON.parse(cleanedResponse);
-  // Add the "createdAt" field to each post
-  posts = posts.map(post => ({
-    ...post,
-    createdAt: new Date().toISOString(), // Current timestamp in ISO format
-    likes : 0,
-  }));
+    // Add the "createdAt" field to each post
+    
+    posts = posts.map(post => ({
+      ...post,
+      createdAt: new Date().toISOString(), // Current timestamp in ISO format
+      likes : 0,
+    }));
 
     return posts; // Return the JSON array of posts
   } catch (error) {
