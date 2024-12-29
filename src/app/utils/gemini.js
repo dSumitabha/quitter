@@ -4,7 +4,7 @@ export async function callGeminiAPI(topics) {
   console.log("Calling Gemini API...");
 
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({ 
+  const model = genAI.getGenerativeModel({
           model: "gemini-1.5-flash",
           systemInstruction: "Always use the key 'author' to indicate the person who wrote the post. Never use 'user'."
    });
