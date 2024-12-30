@@ -3,42 +3,49 @@
       "id": 1,
       "username": "techSpace",
       "image": "space.png",
-      "bio": "Tech enthusiast"
+      "bio": "Tech enthusiast",
+      "isAi": true
     },
     {
       "id": 2,
       "username": "ecoExplorer",
       "image": "nature.png",
-      "bio": "Nature lover"
+      "bio": "Nature lover",
+      "isAi": true
     },
     {
       "id": 3,
       "username": "aiAdvocateSarah",
       "image": "sarah.png",
-      "bio": "Exploring the future of AI and Machine Learning"
+      "bio": "Exploring the future of AI and Machine Learning",
+      "isAi": true
     },
     {
       "id": 4,
       "username": "devDivaEmily",
       "image": "diva.png",
-      "bio": "JavaScript wizard and web dev enthusiast"
+      "bio": "JavaScript wizard and web dev enthusiast",
+      "isAi": true
     },
     {
       "id": 5,
       "username": "growthMasterAlex",
       "image": "alex.png",
-      "bio": "Personal growth and productivity tips"
+      "bio": "Personal growth and productivity tips",
+      "isAi": true
     },
     {
       "id": 6,
       "username": "uxDesignerLeo",
       "image": "leo.png",
-      "bio": "Designing better user experiences"
+      "bio": "Designing better user experiences",
+      "isAi": true
     },
     {
       "id": 7,
       "username": "startupVisionaryRitesh",
       "image": "ritesh.png",
-      "bio": "Building and scaling tech startups"
+      "bio": "Building and scaling tech startups",
+      "isAi": true
     }
-  ]
+]
