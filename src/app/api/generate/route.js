@@ -10,8 +10,19 @@ export async function GET() {
     const topics = selectTopics();
 
     // Generate new posts using the Gemini API
-    const newPosts = await callGeminiAPI(topics); // Fetches posts from Gemini API
+    let newPosts = await callGeminiAPI(topics); // Fetches posts from Gemini API
 
+    newPosts = newPosts.map((post, index) => {
+      const topicUser = topics[index]; // Assuming Gemini API returns posts in the same order as topics
+      return {
+        ...post,
+        user: {
+          id: topicUser.id,
+          username: topicUser.username,
+          image: topicUser.image,
+        },
+      };
+    });
 
     // Load existing posts from the file
     //const postsFilePath = path.join(process.cwd(), "data", "posts.json");
