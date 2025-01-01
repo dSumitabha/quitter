@@ -15,5 +15,6 @@ export function selectTopics(count = 5) {
         id: user.id,
         username: user.username,
         image: user.image,
+        bio: user.bio
     }));
 }

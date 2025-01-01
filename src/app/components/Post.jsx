@@ -43,9 +43,9 @@ const Post = ({ username, content, likes, createdAt, image, bio, isNew }) => {
           className="w-10 h-10 rounded-full mr-3"
         />
         <div>
-          <p className="font-semibold text-gray-700 flex items-center" title={image}>
+          <p className="font-semibold text-gray-700 flex items-center" title={bio}>
             {username}
-            {isNew && <span className="text-yellow-500 ml-2">✨</span>}
+            {isNew && <span className="text-yellow-500 ml-2" title={image}>✨</span>}
           </p>
           <p className="text-xs text-gray-500">
             {formattedDate(createdAt)}
