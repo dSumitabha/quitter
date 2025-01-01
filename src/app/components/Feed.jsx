@@ -24,7 +24,6 @@ const Feed = () => {
       const response = await fetch(`/api/generate`);
 
       const { posts: newPosts, totalPages, currentPage, topics: topicsData } = await response.json();
-      console.log(topics)
 
       setPosts(prevPosts => {
         if (prevPosts.length + newPosts.length > POSTS_TO_KEEP + POSTS_TO_REMOVE) {
@@ -69,7 +68,7 @@ const Feed = () => {
   const observerRef = useIntersection(() => handleLoadMore(), loading);
 
   
-  console.log(enrichedPosts)
+  //console.log(enrichedPosts)
 
   return (
     <div className="max-w-md mx-auto mt-4">
@@ -118,8 +117,5 @@ const Feed = () => {
   );
 };
 
-const LoadingSpinner = () => (
-  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900" />
-);
 
 export default Feed;

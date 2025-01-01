@@ -6,11 +6,11 @@ const useIntersection = (onIntersect, loading) => {
   useEffect(() => {
     const observerCallback = ([entry]) => {
       if (entry.isIntersecting && !loading) {
-        console.log('📍 Intersection detected and loading is false - triggering load');
+        // Intersection detected and loading is false - triggering the callback
+        // console.log('Intersection detected and loading is false - triggering load');
         onIntersect();
       } else {
-        console.log('ℹ️ Skip intersection:', 
-          entry.isIntersecting ? 'loading in progress' : 'not intersecting');
+        // console.log('Skip intersection: ', entry.isIntersecting ? 'loading in progress' : 'not intersecting');
       }
     };
 
@@ -21,18 +21,18 @@ const useIntersection = (onIntersect, loading) => {
     });
 
     if (observerRef.current) {
-      console.log('👀 Starting observation of element');
+      // console.log('Starting observation of element');
       observer.observe(observerRef.current);
     }
 
-    // Cleanup function
+    // Cleanup function to stop observing when the component unmounts
     return () => {
       if (observerRef.current) {
-        console.log('🧹 Cleaning up observation');
+        // console.log('Cleaning up observation');
         observer.unobserve(observerRef.current);
       }
     };
-  }, [onIntersect, loading]); // Dependencies only for onIntersect and loading
+  }, [onIntersect, loading]); // Dependencies: onIntersect and loading
 
   return observerRef;
 };
