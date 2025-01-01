@@ -2,13 +2,11 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 
-
 import Post from "./Post";
 
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
-  const [users, setUsers] = useState([]);
   const [topics, setTopics] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
@@ -23,15 +21,8 @@ const Feed = () => {
     setLoading(true);
     try {
       const response = await fetch(`/api/generate`);
-      const usersResponse = await fetch("/api/users");
-  
-      if (!response.ok || !usersResponse.ok) {
-        throw new Error('Failed to fetch data');
-      }
 
-      console.log(response)
       const { posts: newPosts, totalPages, currentPage, topics: topicsData } = await response.json();
-      const usersData = await usersResponse.json();
       console.log(topics)
 
       setPosts(prevPosts => {
@@ -41,7 +32,6 @@ const Feed = () => {
         return [...prevPosts, ...newPosts];
       });
       
-      setUsers(usersData);
       setTopics(topicsData);
       setHasMore(currentPage < totalPages);
     } catch (error) {
