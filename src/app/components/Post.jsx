@@ -23,6 +23,8 @@ const Post = ({ username, content, likes, createdAt, image, bio, isNew }) => {
       return date.format('DD-MM-YY'); // 20-12-24
     }
   };
+  const sampleDate = '2025-01-01T16:50:23.695Z'
+  console.log(formattedDate(sampleDate))
 
   const handleLikeChange = (newLikeCount) => {
     console.log(`${username}'s post now has ${newLikeCount} likes.`);
