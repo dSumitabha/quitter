@@ -86,33 +86,13 @@ const Feed = () => {
         />
       ))}
 
-            {/* Intersection Observer Target */}
-            {hasMore && (
-        <div
-          ref={observerRef}
-          className="w-full h-16 flex justify-center items-center text-gray-500"
-        >
+        {/* Intersection Observer Target */}
+      {hasMore && (
+        <div ref={observerRef} className="w-full h-16 flex justify-center items-center text-gray-500">
           {loading ? "Loading more posts..." : "Scroll down to load more"}
         </div>
       )}
       
-      {/* Load More Button */}
-      {hasMore && (
-        <div className="p-4 text-center">
-          <button
-            onClick={handleLoadMore}
-            disabled={loading}
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed"
-          >
-            {loading ? (
-              <span className="flex items-center justify-center">
-                <LoadingSpinner />
-                <span className="ml-2">Loading...</span>
-              </span>
-            ) : ( 'Load More' )}
-          </button>
-        </div>
-      )}
       
       {!hasMore && posts.length > 0 && (
         <div className="p-4 text-center text-gray-500">
