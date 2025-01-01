@@ -11,21 +11,10 @@ export async function GET() {
     //Define the topics to be prompted
     //const topics = { techSpace: true, ecoExplorer: true, aiAdvocateSarah: true, devDivaEmily: true, growthMasterAlex: true };
     const topics = selectTopics();
-    console.log(topics);
-    // Generate new posts using the Gemini API
-    let newPosts = await callGeminiAPI(topics); // Fetches posts from Gemini API
 
-    newPosts = newPosts.map((post, index) => {
-      const topicUser = topics[index]; // Assuming Gemini API returns posts in the same order as topics
-      return {
-        ...post,
-        user: {
-          id: topicUser.id,
-          username: topicUser.username,
-          image: topicUser.image,
-        },
-      };
-    });
+    // Generate new posts using the Gemini API
+    const newPosts = await callGeminiAPI(topics); // Fetches posts from Gemini API
+
     // Load existing posts from the file
     //const postsFilePath = path.join(process.cwd(), "data", "posts.json");
     //const data = await fs.readFile(postsFilePath, "utf-8");
@@ -45,6 +34,7 @@ export async function GET() {
     return new Response(JSON.stringify({
         message: "Posts generated successfully",
         posts: newPosts ,
+        topics: topics,
         totalPages: 2,
         currentPage: 1
       }), {

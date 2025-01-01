@@ -80,7 +80,7 @@ const Feed = () => {
       {enrichedPosts.map((post, index) => (
         <Post
           key={`${post.name}-${index}`}
-          username={post.author}
+          username={post.username}
           content={post.content}
           likes={post.likes}
           createdAt={post.createdAt}
@@ -103,9 +103,7 @@ const Feed = () => {
                 <LoadingSpinner />
                 <span className="ml-2">Loading...</span>
               </span>
-            ) : (
-              'Load More'
-            )}
+            ) : ( 'Load More' )}
           </button>
         </div>
       )}
