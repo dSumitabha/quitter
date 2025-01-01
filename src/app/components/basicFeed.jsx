@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import useIntersection from "../utils/IntersectionObserver";
 
 import Post from "./Post";
 
@@ -66,8 +65,6 @@ const Feed = () => {
     }));
   }, [posts, topics]);
 
-  const observerRef = useIntersection(() => handleLoadMore(), loading);
-
   
   console.log(enrichedPosts)
 
@@ -85,16 +82,6 @@ const Feed = () => {
           isNew={true}
         />
       ))}
-
-            {/* Intersection Observer Target */}
-            {hasMore && (
-        <div
-          ref={observerRef}
-          className="w-full h-16 flex justify-center items-center text-gray-500"
-        >
-          {loading ? "Loading more posts..." : "Scroll down to load more"}
-        </div>
-      )}
       
       {/* Load More Button */}
       {hasMore && (
