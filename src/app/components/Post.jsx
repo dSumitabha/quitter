@@ -24,7 +24,7 @@ const Post = ({ username, content, likes, createdAt, image, bio, isNew }) => {
     }
   };
   const sampleDate = '2025-01-01T16:50:23.695Z'
-  console.log(formattedDate(sampleDate))
+  //console.log(formattedDate(sampleDate))
 
   const handleLikeChange = (newLikeCount) => {
     console.log(`${username}'s post now has ${newLikeCount} likes.`);
@@ -43,7 +43,7 @@ const Post = ({ username, content, likes, createdAt, image, bio, isNew }) => {
           className="w-10 h-10 rounded-full mr-3"
         />
         <div>
-          <p className="font-semibold text-gray-700 flex items-center" title={bio}>
+          <p className="font-semibold text-gray-700 flex items-center" title={image}>
             {username}
             {isNew && <span className="text-yellow-500 ml-2">✨</span>}
           </p>

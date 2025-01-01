@@ -9,6 +9,7 @@ import Post from "./Post";
 const Feed = () => {
   const [posts, setPosts] = useState([]);
   const [users, setUsers] = useState([]);
+  const [topics, setTopics] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -28,11 +29,11 @@ const Feed = () => {
         throw new Error('Failed to fetch data');
       }
 
-
-      const { posts: newPosts, totalPages, currentPage } = await response.json();
-      console.log( totalPages, currentPage);
+      console.log(response)
+      const { posts: newPosts, totalPages, currentPage, topics: topicsData } = await response.json();
       const usersData = await usersResponse.json();
-  
+      console.log(topics)
+
       setPosts(prevPosts => {
         if (prevPosts.length + newPosts.length > POSTS_TO_KEEP + POSTS_TO_REMOVE) {
           return [...prevPosts.slice(POSTS_TO_REMOVE), ...newPosts];
@@ -41,6 +42,7 @@ const Feed = () => {
       });
       
       setUsers(usersData);
+      setTopics(topicsData);
       setHasMore(currentPage < totalPages);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -67,11 +69,10 @@ const Feed = () => {
   const enrichedPosts = useMemo(() => {
     return posts.map((post) => ({
       ...post,
-      content: post.post,   // Map post to content if needed
-      user: users.find((u) => u.username === post.author) || 
-      { username: post.author, image: "/default-avatar.png" }
+      image: topics.find((t) => t.id === post.userId)?.image || "/default-avatar.png"
     }));
-  }, [posts]);
+  }, [posts, topics]);
+
   
   console.log(enrichedPosts)
 
@@ -81,11 +82,11 @@ const Feed = () => {
         <Post
           key={`${post.name}-${index}`}
           username={post.username}
-          content={post.content}
+          content={post.post}
           likes={post.likes}
           createdAt={post.createdAt}
-          image={post.user.image}
-          bio={post.user.bio}          
+          image={post.image}
+          bio={post.bio}          
           isNew={true}
         />
       ))}

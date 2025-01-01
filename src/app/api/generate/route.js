@@ -10,39 +10,14 @@ export async function GET() {
     const topics = selectTopics();
 
     // Generate new posts using the Gemini API
-    let newPosts = await callGeminiAPI(topics); // Fetches posts from Gemini API
+    const newPosts = await callGeminiAPI(topics); // Fetches posts from Gemini API
 
-    newPosts = newPosts.map((post, index) => {
-      const topicUser = topics[index]; // Assuming Gemini API returns posts in the same order as topics
-      return {
-        ...post,
-        user: {
-          id: topicUser.id,
-          username: topicUser.username,
-          image: topicUser.image,
-        },
-      };
-    });
-
-    // Load existing posts from the file
-    //const postsFilePath = path.join(process.cwd(), "data", "posts.json");
-    //const data = await fs.readFile(postsFilePath, "utf-8");
-    //const existingPosts = JSON.parse(data);
-
-    // Append new posts to the existing ones
-   // const updatedPosts = [...newPosts, ...existingPosts];
-
-    // Save the updated post list back to the file
-    //await fs.writeFile(postsFilePath, JSON.stringify(updatedPosts, null, 2));
-
-    // Verify the data type before using it
-    //if (!Array.isArray(newPosts)) {
-    //  throw new Error("Expected an array of posts");
-    //}
-    console.log("Posts generated successfully:", newPosts);
-    return new Response(JSON.stringify({ 
+    console.log("Posts generated successfully");
+    
+    return new Response(JSON.stringify({
         message: "Posts generated successfully",
         posts: newPosts ,
+        topics: topics,
         totalPages: 2,
         currentPage: 1
       }), {
