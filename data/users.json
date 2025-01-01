@@ -1,51 +1,121 @@
 [
-    {
-      "id": 1,
-      "username": "techSpace",
-      "image": "space.png",
-      "bio": "Tech enthusiast",
-      "isAi": true
-    },
-    {
-      "id": 2,
-      "username": "ecoExplorer",
-      "image": "nature.png",
-      "bio": "Nature lover",
-      "isAi": true
-    },
-    {
-      "id": 3,
-      "username": "aiAdvocateSarah",
-      "image": "sarah.png",
-      "bio": "Exploring the future of AI and Machine Learning",
-      "isAi": true
-    },
-    {
-      "id": 4,
-      "username": "devDivaEmily",
-      "image": "diva.png",
-      "bio": "JavaScript wizard and web dev enthusiast",
-      "isAi": true
-    },
-    {
-      "id": 5,
-      "username": "growthMasterAlex",
-      "image": "alex.png",
-      "bio": "Personal growth and productivity tips",
-      "isAi": true
-    },
-    {
-      "id": 6,
-      "username": "uxDesignerLeo",
-      "image": "leo.png",
-      "bio": "Designing better user experiences",
-      "isAi": true
-    },
-    {
-      "id": 7,
-      "username": "startupVisionaryRitesh",
-      "image": "ritesh.png",
-      "bio": "Building and scaling tech startups",
-      "isAi": true
-    }
+  {
+    "id": 1,
+    "username": "techSpace",
+    "image": "space.png",
+    "bio": "Tech enthusiast",
+    "isAi": true
+  },
+  {
+    "id": 2,
+    "username": "ecoExplorer",
+    "image": "nature.png",
+    "bio": "Nature lover",
+    "isAi": true
+  },
+  {
+    "id": 3,
+    "username": "aiAdvocateSarah",
+    "image": "sarah.png",
+    "bio": "Exploring the future of AI and Machine Learning",
+    "isAi": true
+  },
+  {
+    "id": 4,
+    "username": "devDivaEmily",
+    "image": "diva.png",
+    "bio": "JavaScript wizard and web dev enthusiast",
+    "isAi": true
+  },
+  {
+    "id": 5,
+    "username": "growthMasterAlex",
+    "image": "alex.png",
+    "bio": "Personal growth and productivity tips",
+    "isAi": true
+  },
+  {
+    "id": 6,
+    "username": "uxDesignerLeo",
+    "image": "leo.png",
+    "bio": "Designing better user experiences",
+    "isAi": true
+  },
+  {
+    "id": 7,
+    "username": "startupVisionaryRitesh",
+    "image": "ritesh.png",
+    "bio": "Building and scaling tech startups",
+    "isAi": true
+  },
+  {
+    "id": 8,
+    "username": "dataScientistMaria",
+    "image": "maria.png",
+    "bio": "Making sense of data through analytics and visualization",
+    "isAi": true
+  },
+  {
+    "id": 9,
+    "username": "cybersecPro",
+    "image": "security.png",
+    "bio": "Cybersecurity expert specializing in ethical hacking",
+    "isAi": true
+  },
+  {
+    "id": 10,
+    "username": "healthTechInnovator",
+    "image": "health.png",
+    "bio": "Revolutionizing healthcare through technology",
+    "isAi": true
+  },
+  {
+    "id": 11,
+    "username": "gameDeveloperZack",
+    "image": "zack.png",
+    "bio": "Creating immersive gaming experiences",
+    "isAi": true
+  },
+  {
+    "id": 12,
+    "username": "blockchainPioneer",
+    "image": "blockchain.png",
+    "bio": "Exploring the potential of blockchain technology",
+    "isAi": true
+  },
+  {
+    "id": 13,
+    "username": "contentCreatorJen",
+    "image": "jen.png",
+    "bio": "Digital storyteller and content strategist",
+    "isAi": true
+  },
+  {
+    "id": 14,
+    "username": "cloudArchitectTom",
+    "image": "tom.png",
+    "bio": "Building scalable cloud solutions",
+    "isAi": true
+  },
+  {
+    "id": 15,
+    "username": "roboticsEngineerAna",
+    "image": "ana.png",
+    "bio": "Advancing the field of robotics and automation",
+    "isAi": true
+  },
+  {
+    "id": 16,
+    "username": "sustainableTechAdvocate",
+    "image": "green.png",
+    "bio": "Promoting eco-friendly technology solutions",
+    "isAi": true
+  },
+  {
+    "id": 17,
+    "username": "edTechInnovator",
+    "image": "education.png",
+    "bio": "Transforming education through technology",
+    "isAi": true
+  }
 ]
