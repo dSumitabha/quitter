@@ -26,9 +26,7 @@ const Feed = () => {
       const { posts: newPosts, totalPages, currentPage, topics: topicsData } = await response.json();
 
       setPosts(prevPosts => {
-        if (prevPosts.length + newPosts.length > POSTS_TO_KEEP + POSTS_TO_REMOVE) {
-          return [...prevPosts.slice(POSTS_TO_REMOVE), ...newPosts];
-        }
+        
         return [...prevPosts, ...newPosts];
       });
       
