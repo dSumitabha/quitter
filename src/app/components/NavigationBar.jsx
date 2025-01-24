@@ -1,4 +1,5 @@
 import React from "react";
+import Link from 'next/link';
 import { AiOutlineHome, AiOutlinePlus, AiOutlineUser } from "react-icons/ai";
 
 const NavBar = () => {
@@ -7,10 +8,10 @@ const NavBar = () => {
       <ul className="flex justify-around items-center py-3">
         {/* Home */}
         <li className="text-center">
-          <a href="/" className="flex flex-col items-center text-gray-500 hover:text-blue-500">
+          <Link href="/" className="flex flex-col items-center text-gray-500 hover:text-blue-500">
             <AiOutlineHome className="w-6 h-6" />
             <span className="text-xs mt-1">Home</span>
-          </a>
+          </Link>
         </li>
 
         {/* Create Post */}
@@ -23,10 +24,10 @@ const NavBar = () => {
 
         {/* Profile */}
         <li className="text-center">
-          <a href="/profile" className="flex flex-col items-center text-gray-500 hover:text-blue-500">
+          <Link href="/profile" className="flex flex-col items-center text-gray-500 hover:text-blue-500">
             <AiOutlineUser className="w-6 h-6" />
             <span className="text-xs mt-1">Profile</span>
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>
