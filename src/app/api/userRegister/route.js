@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import User from '@/models/User';
 import connectDB from '@/lib/db';
 
-export async function GET(request) {
+export async function POST(request) {
   try {
     await connectDB();
 
