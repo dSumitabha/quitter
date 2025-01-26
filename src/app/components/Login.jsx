@@ -1,4 +1,4 @@
-// components/Login.js
+'use client'
 import React from 'react';
 
 const Login = ({ handleChange, formData, handleSubmit }) => {
