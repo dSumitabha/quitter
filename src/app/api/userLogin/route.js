@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken'; // You need to install this package: npm install jsonwebtoken
+import { SignJWT } from 'jose'; 
+import jwt from 'jsonwebtoken'; 
 import User from '@/models/User';
 import connectDB from '@/lib/db';
 
@@ -33,31 +34,27 @@ export async function POST(request) {
       );
     }
 
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET); // Encode the secret
     // Create a JWT token
-    const token = jwt.sign(
-      { userId: user._id, username: user.username, email: user.email },
-      process.env.JWT_SECRET, // Use an environment variable for your secret key
-      { expiresIn: '1d' } // Token expires in 1 day
-    );
-
-    return NextResponse.json(
-      { message: 'Login successful', token }, // Return the JWT token
-      { status: 200 }
-    );
+    const token = await new SignJWT({ userId: user._id, username: user.username, email: user.email })
+    .setProtectedHeader({ alg: 'HS256' }) // Set the algorithm
+    .setExpirationTime('1d') // Set the expiration time
+    .sign(secret); // Sign the token
 
     // Set the token in cookies
     const response = NextResponse.json(
         { message: 'Login successful', token },
         { status: 200 }
-        );
+    );
     
-        response.cookies.set('token', token, {
-            httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
-            secure: process.env.NODE_ENV === 'production', // Ensure cookies are only sent over HTTPS in production
-            maxAge: 86400, // 1 day in seconds
-            path: '/', // Make the cookie accessible across the entire site
-        });
-      
+    response.cookies.set('token', token, {
+        httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
+        secure: process.env.NODE_ENV === 'production', // Ensure cookies are only sent over HTTPS in production
+        maxAge: 86400, // 1 day in seconds
+        path: '/', // Make the cookie accessible across the entire site
+    });
+    
+    return response;
 
   } catch (error) {
     return NextResponse.json(
