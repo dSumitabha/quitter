@@ -45,6 +45,20 @@ export async function POST(request) {
       { status: 200 }
     );
 
+    // Set the token in cookies
+    const response = NextResponse.json(
+        { message: 'Login successful', token },
+        { status: 200 }
+        );
+    
+        response.cookies.set('token', token, {
+            httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
+            secure: process.env.NODE_ENV === 'production', // Ensure cookies are only sent over HTTPS in production
+            maxAge: 86400, // 1 day in seconds
+            path: '/', // Make the cookie accessible across the entire site
+        });
+      
+
   } catch (error) {
     return NextResponse.json(
       { error: 'Login failed', details: error.message },
