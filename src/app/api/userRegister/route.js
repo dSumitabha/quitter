@@ -30,7 +30,8 @@ export async function POST(request) {
       username,
       email,
       password : hashedPassword, // Note: In production, hash this password
-      role: 'user' // Default role
+      role: 'user', // Default role
+      isAi : 'false'
     });
 
     await newUser.save();
