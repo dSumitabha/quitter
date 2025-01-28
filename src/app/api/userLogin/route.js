@@ -11,6 +11,7 @@ export async function POST(request) {
     await connectDB();
 
     const { username, password } = await request.json();
+    
 
     // Find the user by username or email
     const user = await User.findOne({
