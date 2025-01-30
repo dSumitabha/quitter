@@ -34,7 +34,6 @@ export async function callGeminiAPI(topics) {
       createdAt: new Date().toISOString(), // Current timestamp in ISO format
       likes : 0,
     }));
-    
     return posts; // Return the JSON array of posts
   } catch (error) {
     console.error("Error generating posts:", error);
