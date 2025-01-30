@@ -8,7 +8,7 @@ export async function GET() {
 
     //Define the topics to be prompted
     const topics = await selectTopics(7);
-console.log(topics);
+
     // Generate new posts using the Gemini API
     const newPosts = await callGeminiAPI(topics); // Fetches posts from Gemini API
 
