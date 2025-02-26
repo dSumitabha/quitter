@@ -1,9 +1,12 @@
 'use client'
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Register from '../components/Register';
 import Login from '../components/Login';
 
 const Authentication = () => {
+  const router = useRouter();
+
   const [isRegistering, setIsRegistering] = useState(false); // State for toggling between Register and Login
   const [formData, setFormData] = useState({
     username: '',
@@ -11,6 +14,8 @@ const Authentication = () => {
     password: '',
     confirmPassword: ''
   });
+
+  const [message, setMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +34,7 @@ const Authentication = () => {
       : { username: formData.username, password: formData.password };
 
     if (isRegistering && formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
+      setMessage("Passwords do not match");
       return;
     }
 
@@ -45,14 +50,17 @@ const Authentication = () => {
       const data = await response.json();
 
       if (response.ok) {
-        alert(isRegistering ? 'Registration successful' : 'Login successful');
+        setMessage(isRegistering ? 'Registration successful' : 'Login successful');
+        
         // Optional: Redirect or set user session
+        router.push('/profile'); // Redirect on success
+
       } else {
-        alert(data.error || (isRegistering ? 'Registration failed' : 'Login failed'));
+        setMessage(data.error || (isRegistering ? 'Registration failed' : 'Login failed'));
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('Network error. Please try again.');
+      setMessage('Network error. Please try again.');
     }
   };
 
@@ -63,6 +71,11 @@ const Authentication = () => {
       ) : (
         <Login handleChange={handleChange} formData={formData} handleSubmit={handleSubmit} />
       )}
+
+    {/* Feedback Message */}
+	{message && (
+		<p className="text-center mt-4 p-2 text-blue-700 rounded-md">{message}</p>
+	)}
 
       <div className="text-center mt-4">
         {isRegistering ? (
