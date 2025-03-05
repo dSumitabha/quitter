@@ -21,6 +21,7 @@ const Authentication = () => {
   };
 
   const handleSubmit = async (e) => {
+    console.log('Hello')
     e.preventDefault();
 
     const endpoint = isRegistering ? '/api/userRegister' : '/api/userLogin';
