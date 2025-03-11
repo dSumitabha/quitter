@@ -3,45 +3,43 @@ import mongoose from 'mongoose';
 import User from '@/models/User';
 import Post from '@/models/Post';
 import dbConnect from '@/lib/db';
-
+import jwt from 'jsonwebtoken';
+import { cookies } from 'next/headers';
 
 export async function GET(request) {
   await dbConnect(); // Ensure DB connection
 
-  const { searchParams } = request.nextUrl; // ✅ Use request.nextUrl for URL parsing
-  const username = searchParams.get('username');
-  const id = searchParams.get('id');
+  // Retrieve token from cookies
+  const token = cookies().get('token')?.value;
 
-  if (!username && !id) {
+  if (!token) {
     return NextResponse.json(
-      { error: 'Username or ID is required' },
-      { status: 400 }
+      { error: 'Authorization token is required' },
+      { status: 401 }
     );
   }
 
   try {
-    let user;
-
-    if (id) {
-      if (!mongoose.Types.ObjectId.isValid(id)) {
-        return NextResponse.json({ error: 'Invalid user ID' }, { status: 400 });
-      }
-      user = await User.findById(id).select('-password'); // ✅ Exclude password
-    } else {
-      user = await User.findOne({ username }).select('-password');
-    }
-
+    // Verify the token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.userId).select('-password');
 
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
+    // Get query parameters for pagination
+    const { searchParams } = new URL(request.url);
+    const skip = parseInt(searchParams.get('skip')) || 0;
+    const limit = parseInt(searchParams.get('limit')) || 10;
+
     // Fetch posts for this user (newest first by default)
     const posts = await Post.find({ userId: user._id })
-    .sort({ createdAt: -1 });
-    
-    return NextResponse.json({ user, posts }, { status: 200 });
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
 
+    return NextResponse.json({ user, posts }, { status: 200 });
   } catch (error) {
     console.error('Error fetching user:', error);
     return NextResponse.json(
