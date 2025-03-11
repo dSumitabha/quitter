@@ -6,7 +6,6 @@ import User from '@/models/User';
 import connectDB from '@/lib/db';
 
 export async function POST(request) {
-    console.log('inside login route')
   try {
     await connectDB();
 
