@@ -83,17 +83,17 @@ const Profile = () => {
   );
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="max-w-md mx-auto min-h-screen flex justify-center items-center ">Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="max-w-md mx-auto min-h-screen flex justify-center items-center ">Error: {error}</div>;
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-6 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen py-6 px-4 sm:px-6 lg:px-8">
       {/* Profile Header */}
-      <div className="bg-white rounded-lg shadow-lg max-w-3xl mx-auto p-6">
+      <div className="bg-white rounded-lg shadow-lg max-w-md mx-auto p-6">
         <div className="flex items-center space-x-6">
           {/* Profile Image */}
           <div className="relative">
@@ -121,8 +121,8 @@ const Profile = () => {
       </div>
 
       {/* User Posts Section */}
-      <div className="mt-8 max-w-3xl mx-auto">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">Posts</h2>
+      <div className="mt-8 max-w-md mx-auto">
+        <h2 className="text-xl font-semibold text-gray-200 mb-4">Posts</h2>
         {posts.length === 0 ? (
           <p className="text-gray-500">No posts available</p>
         ) : (
