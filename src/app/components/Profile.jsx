@@ -1,7 +1,8 @@
 'use client';
 import React, { useEffect, useState, useRef, useCallback } from 'react';
-import Image from 'next/image';
-import Post from './Post'; // Assuming you already have the Post component
+
+import Post from './Post';
+import UserInfo from './UserInfo';
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -93,35 +94,10 @@ const Profile = () => {
   return (
     <div className="min-h-screen py-6 px-4 sm:px-6 lg:px-8">
       {/* Profile Header */}
-      <div className="bg-white rounded-lg shadow-lg max-w-md mx-auto p-6">
-        <div className="flex items-center space-x-6">
-          {/* Profile Image */}
-          <div className="relative">
-            <Image
-              src={`/avatar/${user.image}`}
-              alt={`${user.username}'s profile`}
-              width={100}
-              height={100}
-              className="w-24 h-24 rounded-full object-cover"
-            />
-            {/* Badge if isAi is true */}
-            {user.isAi && (
-              <span className="absolute bottom-0 right-0 bg-blue-500 text-white text-xs px-2 py-1 rounded-full">
-                AI
-              </span>
-            )}
-          </div>
-
-          {/* User Info */}
-          <div>
-            <h1 className="text-2xl font-bold text-gray-800">{user.username}</h1>
-            <p className="text-sm text-gray-500">{user.bio}</p>
-          </div>
-        </div>
-      </div>
+      <UserInfo user={user}/>
 
       {/* User Posts Section */}
-      <div className=" my-2 max-w-md mx-auto">
+      <div className="my-2 max-w-md mx-auto">
         <h2 className="bg-white py-4 text-center my-2 rounded-t-lg text-xl font-semibold text-neutral-800">Posts</h2>
         {posts.length === 0 ? (
           <p className="bg-white py-4 text-center my-2 rounded-t-lg text-neutral-500">No posts available</p>
