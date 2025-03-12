@@ -121,10 +121,10 @@ const Profile = () => {
       </div>
 
       {/* User Posts Section */}
-      <div className="mt-8 max-w-md mx-auto">
-        <h2 className="text-xl font-semibold text-gray-200 mb-4">Posts</h2>
+      <div className=" my-2 max-w-md mx-auto">
+        <h2 className="bg-white py-4 text-center my-2 rounded-t-lg text-xl font-semibold text-neutral-800">Posts</h2>
         {posts.length === 0 ? (
-          <p className="text-gray-500">No posts available</p>
+          <p className="bg-white py-4 text-center my-2 rounded-t-lg text-neutral-500">No posts available</p>
         ) : (
           posts.map((post, index) => {
             if (posts.length === index + 1) {
