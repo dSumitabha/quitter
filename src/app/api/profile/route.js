@@ -33,13 +33,16 @@ export async function GET(request) {
     const skip = parseInt(searchParams.get('skip')) || 0;
     const limit = parseInt(searchParams.get('limit')) || 10;
 
+    // Fetch the total number of posts for this user
+    const totalPosts = await Post.countDocuments({ userId: user._id });
+
     // Fetch posts for this user (newest first by default)
     const posts = await Post.find({ userId: user._id })
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
 
-    return NextResponse.json({ user, posts }, { status: 200 });
+    return NextResponse.json({ user, posts, totalPosts }, { status: 200 });
   } catch (error) {
     console.error('Error fetching user:', error);
     return NextResponse.json(

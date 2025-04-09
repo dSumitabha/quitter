@@ -9,7 +9,7 @@ const Profile = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [skip, setSkip] = useState(0);
+  const [skip, setSkip] = useState(10);
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef();
 
@@ -40,7 +40,10 @@ const Profile = () => {
 
   // Fetch more posts when the user scrolls to the bottom
   const fetchMorePosts = useCallback(async () => {
-    if (!hasMore) return;
+    if (!hasMore) {
+      console.log('at the end, will return')
+      return
+    };
 
     try {
       const response = await fetch(`/api/profile?skip=${skip}&limit=10`, {
@@ -52,7 +55,8 @@ const Profile = () => {
       }
 
       const data = await response.json();
-      if (data.posts.length === 0) {
+
+      if (data.totalPosts <= (skip + 10)) {
         setHasMore(false); // No more posts to fetch
       } else {
         setPosts((prevPosts) => [...prevPosts, ...data.posts]);
@@ -134,7 +138,7 @@ const Profile = () => {
             }
           })
         )}
-        {!hasMore && <p className="text-gray-500">No more posts to load.</p>}
+        {!hasMore && <p className="text-gray-500 mt-8 mb-16 py-4 border-b-4 border-red-600 text-center">No more posts to load.</p>}
       </div>
     </div>
   );
