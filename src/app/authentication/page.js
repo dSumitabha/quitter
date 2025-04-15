@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Register from '../components/Register';
 import Login from '../components/Login';
@@ -16,6 +16,7 @@ const Authentication = () => {
   });
 
   const [message, setMessage] = useState('');
+  const [redirecting, setRedirecting] = useState(false); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,7 +27,6 @@ const Authentication = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log('Hello')
     e.preventDefault();
 
     const endpoint = isRegistering ? '/api/userRegister' : '/api/userLogin';
@@ -53,8 +53,9 @@ const Authentication = () => {
       if (response.ok) {
         setMessage(isRegistering ? 'Registration successful' : 'Login successful');
         
-        // Optional: Redirect or set user session
-        router.push('/profile'); // Redirect on success
+        setTimeout(() => {
+          setRedirecting(true); // Initiate redirection
+        }, 1000); // Delay for message to show before redirect
 
       } else {
         setMessage(data.error || (isRegistering ? 'Registration failed' : 'Login failed'));
@@ -65,6 +66,13 @@ const Authentication = () => {
     }
   };
 
+  // Perform the redirection after successful login/registration
+  useEffect(() => {
+    if (redirecting) {
+      router.push('/profile'); // Redirect to profile after the short delay
+    }
+  }, [redirecting, router]);
+
   return (
     <div className="max-w-md mx-auto mt-4">
       {isRegistering ? (
@@ -73,10 +81,10 @@ const Authentication = () => {
         <Login handleChange={handleChange} formData={formData} handleSubmit={handleSubmit} />
       )}
 
-    {/* Feedback Message */}
-	{message && (
-		<p className="text-center mt-4 p-2 text-blue-700 rounded-md">{message}</p>
-	)}
+      {/* Feedback Message */}
+      {message && (
+        <p className="text-center mt-4 p-2 text-blue-700 rounded-md">{message}</p>
+      )}
 
       <div className="text-center mt-4">
         {isRegistering ? (
