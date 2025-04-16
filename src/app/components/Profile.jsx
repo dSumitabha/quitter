@@ -127,6 +127,7 @@ const Profile = () => {
               return (
                 <Post
                   key={post._id}
+                  postId={post._id}
                   username={user.username}
                   content={post.content}
                   likes={post.likes}

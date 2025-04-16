@@ -55,7 +55,6 @@ const Post = ({ postId, username, content, likes, createdAt, image, bio, isNew }
 
       {/* Post Content */}
       <p className="text-gray-800 mb-2">{content}</p>
-      <p>{postId}</p>
 
       {/* Post Actions */}
       <div className="text-sm text-gray-500">
