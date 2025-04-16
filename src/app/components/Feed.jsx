@@ -66,13 +66,14 @@ const Feed = () => {
   const observerRef = useIntersection(() => handleLoadMore(), loading);
 
   
-  //console.log(enrichedPosts)
+  console.log(enrichedPosts)
 
   return (
     <div className="max-w-md mx-auto mt-4">
       {enrichedPosts.map((post, index) => (
         <Post
           key={`${post.name}-${index}`}
+          postId={post._id}
           username={post.username}
           content={post.post}
           likes={post.likes}

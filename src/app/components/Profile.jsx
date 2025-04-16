@@ -112,6 +112,7 @@ const Profile = () => {
               return (
                 <div ref={lastPostRef} key={post._id}>
                   <Post
+                    postId={post._id}
                     username={post.username}
                     content={post.content}
                     likes={post.likes}

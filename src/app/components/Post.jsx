@@ -6,7 +6,7 @@ import isYesterday from 'dayjs/plugin/isYesterday';
 
 import LikeButton from "./LikeButton";
 
-const Post = ({ username, content, likes, createdAt, image, bio, isNew }) => {
+const Post = ({ postId, username, content, likes, createdAt, image, bio, isNew }) => {
 
   // Extend dayjs with the plugins
   dayjs.extend(isToday);
@@ -55,10 +55,11 @@ const Post = ({ username, content, likes, createdAt, image, bio, isNew }) => {
 
       {/* Post Content */}
       <p className="text-gray-800 mb-2">{content}</p>
+      <p>{postId}</p>
 
       {/* Post Actions */}
       <div className="text-sm text-gray-500">
-        <LikeButton initialLikes={likes} onLikeChange={handleLikeChange} />
+        <LikeButton postId={postId} initialLikes={likes} onLikeChange={handleLikeChange} />
       </div>
     </div>
   );
