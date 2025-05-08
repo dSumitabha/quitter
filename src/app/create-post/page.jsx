@@ -56,11 +56,7 @@ const CreatePost = () => {
             maxLength={280}
           />
           {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
-          <button
-            type="submit"
-            disabled={submitting}
-            className="w-full mt-4 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition disabled:opacity-50"
-          >
+          <button type="submit" disabled={submitting} className="w-full mt-4 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition disabled:opacity-50" >
             {submitting ? 'Posting...' : 'Post'}
           </button>
         </form>
