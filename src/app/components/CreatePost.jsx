@@ -1,6 +1,6 @@
-import React from 'react';
-import CreatePost from '../components/CreatePost';
-import "../globals.css";
+'use client';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const CreatePost = () => {
   const [content, setContent] = useState('');
@@ -20,7 +20,7 @@ const CreatePost = () => {
     setSubmitting(true);
 
     try {
-      const response = await fetch('/api/posts', {
+      const response = await fetch('/api/newPost', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,11 +44,11 @@ const CreatePost = () => {
 
   return (
     <div className="max-w-md mx-auto mt-4">
-      <div className="bg-white w-full max-w-md p-6 rounded-lg shadow-md">
+      <div className="bg-white w-full max-w-md p-6 rounded shadow-md">
         <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">Create a Post</h2>
         <form onSubmit={handleSubmit}>
           <textarea
-            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none h-40 text-sm"
+            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none h-32 text-sm"
             placeholder="What's on your mind?"
             value={content}
             onChange={(e) => setContent(e.target.value)}
@@ -58,7 +58,7 @@ const CreatePost = () => {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full mt-4 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition disabled:opacity-50"
+            className="w-full mt-4 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition disabled:opacity-50"
           >
             {submitting ? 'Posting...' : 'Post'}
           </button>

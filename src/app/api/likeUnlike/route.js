@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 import Like from '@/models/Like';
+import Post from '@/models/Post';
 import connectDB from '@/lib/db';
 
 export async function POST(request) {
@@ -34,11 +35,16 @@ export async function POST(request) {
       // Unlike: remove the postId
       likeDoc.postIds.pull(postId);
       await likeDoc.save();
+      const post = await Post.findById(postId);
+      if (post && post.likes > 0) {
+        await Post.findByIdAndUpdate(postId, { $inc: { likes: -1 } });
+      }
       return NextResponse.json({ message: 'Post unliked', unliked: true }, { status: 200 });
     } else {
       // Like: add the postId
       likeDoc.postIds.push(postId);
       await likeDoc.save();
+      await Post.findByIdAndUpdate(postId, { $inc: { likes: 1 } });
       return NextResponse.json({ message: 'Post liked', liked: true }, { status: 200 });
     }
 
