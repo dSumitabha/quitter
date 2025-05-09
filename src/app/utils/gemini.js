@@ -34,7 +34,7 @@ export async function callGeminiAPI(topics) {
       _id: new ObjectId(), // Generate a new ObjectId for each post
       userId: userIds[index],         // Map userId from the topics array
       createdAt: new Date().toISOString(), // Current timestamp in ISO format
-      likes : 5,
+      likes : 0,
     }));
     return posts; // Return the JSON array of posts
   } catch (error) {
