@@ -1,4 +1,5 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { ObjectId } from "mongodb";
 
 export async function callGeminiAPI(topics) {
   console.log("Calling Gemini API...");
@@ -30,9 +31,10 @@ export async function callGeminiAPI(topics) {
     
     posts = posts.map((post, index) => ({
       ...post,
+      _id: new ObjectId(), // Generate a new ObjectId for each post
       userId: userIds[index],         // Map userId from the topics array
       createdAt: new Date().toISOString(), // Current timestamp in ISO format
-      likes : 0,
+      likes : 5,
     }));
     return posts; // Return the JSON array of posts
   } catch (error) {
