@@ -44,9 +44,7 @@ export async function GET(request) {
 
     const postsWithLikeStatus = posts.map(post => {
       const plainPost = post.toObject();
-      if (likedPostIdsSet.has(post._id.toString())) {
-        plainPost.isLiked = true;
-      }
+      plainPost.isLiked = likedPostIdsSet.has(post._id.toString()); // always set to true or false
       return plainPost;
     });
 
