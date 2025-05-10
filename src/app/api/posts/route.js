@@ -1,49 +1,65 @@
 import Post from '@/models/Post';
-import User from '@/models/User';  
+import User from '@/models/User';
+import Like from '@/models/Like';
 import connectDB from '@/lib/db';
+import { cookies } from 'next/headers';
+import { jwtVerify } from 'jose';
 
 export async function GET(request) {
   try {
     await connectDB();
 
-    // Get the page query parameter (default to page 1)
     const url = new URL(request.url);
     const page = parseInt(url.searchParams.get('page')) || 1;
     const limit = 10;
 
-    // Fetch posts with pagination
     const posts = await Post.find()
-      .skip((page - 1) * limit) // Skip posts based on the page number
+      .skip((page - 1) * limit)
       .limit(limit)
-      .sort({ createdAt: -1 }); // Sort by creation date in descending order
+      .sort({ createdAt: -1 });
 
-    // Get total posts count to calculate totalPages
     const totalPosts = await Post.countDocuments();
     const totalPages = Math.ceil(totalPosts / limit);
 
-    // Get the userIds of the users who created the posts
     const userIds = posts.map(post => post.userId);
-
-    // Fetch user data for the users who created the posts
     const users = await User.find({ _id: { $in: userIds } });
-    
 
-    // Extract topics (assuming each post has a 'topic' field)
-    const topics = [...new Set(posts.map(post => post.topic))]; // Get unique topics
+    // --- AUTH: Get userId from JWT token ---
+    const cookieStore = cookies();
+    const token = cookieStore.get('token')?.value;
+    let likedPostIdsSet = new Set();
 
-    // Construct the response
-    const response = new Response(JSON.stringify({
+    if (token) {
+      try {
+        const { payload } = await jwtVerify(token, new TextEncoder().encode(process.env.JWT_SECRET));
+        const userId = payload.userId;
+
+        const likeDoc = await Like.findOne({ userId });
+        likedPostIdsSet = new Set((likeDoc?.postIds || []).map(id => id.toString()));
+      } catch (authErr) {
+        // If token is invalid, just skip isLiked logic
+        console.warn("JWT verification failed:", authErr.message);
+      }
+    }
+
+    const postsWithLikeStatus = posts.map(post => {
+      const plainPost = post.toObject();
+      if (likedPostIdsSet.has(post._id.toString())) {
+        plainPost.isLiked = true;
+      }
+      return plainPost;
+    });
+
+    return new Response(JSON.stringify({
       message: "Posts generated successfully",
-      posts: posts,
-      topics: users,
-      totalPages: totalPages,
+      posts: postsWithLikeStatus,
+      topics: users, // you may want to rename this from 'topics'
+      totalPages,
       currentPage: page
     }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });
-
-    return response;
 
   } catch (error) {
     return new Response(JSON.stringify({
