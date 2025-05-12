@@ -10,7 +10,7 @@ import { cookies } from 'next/headers';
 export async function GET(request, { params }) {
   await dbConnect();
 
-  const { userId } = params;
+  const { username } = params;
 
   const cookieStore = cookies();
   const token = cookieStore.get('token')?.value;
@@ -26,7 +26,7 @@ export async function GET(request, { params }) {
   }
 
   try {
-    const user = await User.findById(userId).select('-password');
+    const user = await User.findOne({ username }).select('-password');
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
@@ -35,9 +35,9 @@ export async function GET(request, { params }) {
     const skip = parseInt(searchParams.get('skip')) || 0;
     const limit = parseInt(searchParams.get('limit')) || 10;
 
-    const totalPosts = await Post.countDocuments({ userId });
+    const totalPosts = await Post.countDocuments({ userId: user._id });
 
-    const posts = await Post.find({ userId })
+    const posts = await Post.find({ userId: user._id })
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
