@@ -42,19 +42,28 @@ const User = () => {
   // Fetch more posts
   const fetchMorePosts = useCallback(async () => {
     if (!hasMore || !username) return;
-
+    
+    // Prevent multiple simultaneous fetch requests
+    const currentSkip = skip;
+    
     try {
-      const response = await fetch(`/api/user/${username}?skip=${skip}&limit=10`, {
+      const response = await fetch(`/api/user/${username}?skip=${currentSkip}&limit=10`, {
         credentials: 'include',
       });
 
       if (!response.ok) throw new Error('Failed to fetch more posts');
 
       const data = await response.json();
-
-      setPosts((prevPosts) => [...prevPosts, ...data.posts]);
+      
+      // Deduplicate posts by ID to ensure uniqueness
+      setPosts((prevPosts) => {
+        const existingIds = new Set(prevPosts.map(post => post._id));
+        const newUniquePosts = data.posts.filter(post => !existingIds.has(post._id));
+        return [...prevPosts, ...newUniquePosts];
+      });
+      
       setSkip((prevSkip) => prevSkip + 10);
-      if (data.totalPosts <= skip + 10) setHasMore(false);
+      if (data.totalPosts <= currentSkip + 10) setHasMore(false);
     } catch (err) {
       setError(err.message);
     }
@@ -68,7 +77,10 @@ const User = () => {
 
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
-          fetchMorePosts();
+          // Debounce the fetch call to prevent multiple rapid calls
+          setTimeout(() => {
+            fetchMorePosts();
+          }, 100);
         }
       });
 
@@ -96,24 +108,44 @@ const User = () => {
       {posts.length === 0 ? (
         <p className="bg-white py-4 text-center my-2 rounded-t-lg text-neutral-500">No posts available</p>
       ) : (
-        posts.map((post, index) => {
-          const isLast = posts.length === index + 1;
-          const PostComponent = (
-            <Post
-              key={post._id}
-              postId={post._id}
-              username={user.username}
-              content={post.content}
-              likes={post.likes}
-              createdAt={post.createdAt}
-              image={user.image}
-              bio={user.bio}
-              isNew={false}
-              isLiked={post.isLiked}
-            />
-          );
-          return isLast ? <div key={`last-${post._id}`} ref={lastPostRef}>{PostComponent}</div> : PostComponent;
-        })
+        <>
+          {posts.map((post, index) => {
+            if (!post || !post._id) {
+              return null; // Skip rendering if post is invalid
+            }
+            
+            const isLast = posts.length === index + 1;
+            return isLast ? (
+              <div key={`container-${post._id}`} ref={lastPostRef}>
+                <Post
+                  key={`post-${post._id}`}
+                  postId={post._id}
+                  username={user.username}
+                  content={post.content}
+                  likes={post.likes}
+                  createdAt={post.createdAt}
+                  image={user.image}
+                  bio={user.bio}
+                  isNew={false}
+                  isLiked={post.isLiked}
+                />
+              </div>
+            ) : (
+              <Post
+                key={`post-${post._id}`}
+                postId={post._id}
+                username={user.username}
+                content={post.content}
+                likes={post.likes}
+                createdAt={post.createdAt}
+                image={user.image}
+                bio={user.bio}
+                isNew={false}
+                isLiked={post.isLiked}
+              />
+            );
+          })}
+        </>
       )}
       {!hasMore && posts.length > 0 && (
         <p className="text-gray-500 mt-8 mb-16 py-4 border-b-4 border-red-600 text-center">
