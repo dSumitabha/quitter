@@ -25,7 +25,7 @@ export async function GET(request) {
     const users = await User.find({ _id: { $in: userIds } });
 
     // --- AUTH: Get userId from JWT token ---
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const token = cookieStore.get('token')?.value;
     let likedPostIdsSet = new Set();
 
