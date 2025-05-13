@@ -78,43 +78,48 @@ const User = () => {
   );
 
   if (loading) {
-    return <div className="max-w-md mx-auto min-h-screen flex justify-center items-center ">Loading...</div>;
+    return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div className="max-w-md mx-auto min-h-screen flex justify-center items-center ">Error: {error}</div>;
+    return <div>Error: {error}</div>;
+  }
+
+  if (!user) {
+    return <div>User not found</div>;
   }
 
   return (
-    <div className="min-h-screen py-6 px-4 sm:px-6 lg:px-8">
-      <UserInfo user={user} />
-
-      <div className="my-2 max-w-md mx-auto">
-        <h2 className="bg-white py-4 text-center my-2 rounded-t-lg text-xl font-semibold text-neutral-800">Posts</h2>
-        {posts.length === 0 ? (
-          <p className="bg-white py-4 text-center my-2 rounded-t-lg text-neutral-500">No posts available</p>
-        ) : (
-          posts.map((post, index) => {
-            const isLast = posts.length === index + 1;
-            const PostComponent = (
-              <Post
-                key={post._id}
-                postId={post._id}
-                username={user.username}
-                content={post.content}
-                likes={post.likes}
-                createdAt={post.createdAt}
-                image={user.image}
-                bio={user.bio}
-                isNew={false}
-                isLiked={post.isLiked}
-              />
-            );
-            return isLast ? <div ref={lastPostRef}>{PostComponent}</div> : PostComponent;
-          })
-        )}
-        {!hasMore && <p className="text-gray-500 mt-8 mb-16 py-4 border-b-4 border-red-600 text-center">No more posts to load.</p>}
-      </div>
+    <div className="my-2 max-w-md mx-auto">
+      {user && <UserInfo user={user} />}
+      <h2 className="bg-white py-4 text-center my-2 rounded-t-lg text-xl font-semibold text-neutral-800">Posts</h2>
+      {posts.length === 0 ? (
+        <p className="bg-white py-4 text-center my-2 rounded-t-lg text-neutral-500">No posts available</p>
+      ) : (
+        posts.map((post, index) => {
+          const isLast = posts.length === index + 1;
+          const PostComponent = (
+            <Post
+              key={post._id}
+              postId={post._id}
+              username={user.username}
+              content={post.content}
+              likes={post.likes}
+              createdAt={post.createdAt}
+              image={user.image}
+              bio={user.bio}
+              isNew={false}
+              isLiked={post.isLiked}
+            />
+          );
+          return isLast ? <div key={`last-${post._id}`} ref={lastPostRef}>{PostComponent}</div> : PostComponent;
+        })
+      )}
+      {!hasMore && posts.length > 0 && (
+        <p className="text-gray-500 mt-8 mb-16 py-4 border-b-4 border-red-600 text-center">
+          No more posts to load.
+        </p>
+      )}
     </div>
   );
 };
