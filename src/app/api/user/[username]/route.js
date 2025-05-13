@@ -10,9 +10,9 @@ import { cookies } from 'next/headers';
 export async function GET(request, { params }) {
   await dbConnect();
 
-  const { username } = params;
+  const { username } = await params;
 
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value;
 
   let requesterId = null;
