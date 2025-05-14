@@ -120,6 +120,7 @@ const Profile = () => {
                     image={user.image}
                     bio={post.bio}
                     isNew={post.isNew}
+                    isLiked={post.isLiked}
                   />
                 </div>
               );
@@ -135,6 +136,7 @@ const Profile = () => {
                   image={user.image}
                   bio={user.bio}
                   isNew={false}
+                  isLiked={post.isLiked}
                 />
               );
             }

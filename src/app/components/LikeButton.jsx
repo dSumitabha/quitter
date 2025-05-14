@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
-const LikeButton = ({ postId, initialLikes, onLikeChange }) => {
-  const [isLiked, setIsLiked] = useState(false);
+const LikeButton = ({ postId, initialLikes, isInitiallyLiked = false, onLikeChange }) => {
+  const [isLiked, setIsLiked] = useState(isInitiallyLiked);
   const [likeCount, setLikeCount] = useState(initialLikes);
   const [animate, setAnimate] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
