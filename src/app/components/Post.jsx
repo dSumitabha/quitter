@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import isToday from 'dayjs/plugin/isToday';
 import isYesterday from 'dayjs/plugin/isYesterday';
+import Link from 'next/link';
 
 import LikeButton from "./LikeButton";
 
@@ -38,10 +39,10 @@ const Post = ({ postId, username, content, likes, createdAt, image, bio, isNew, 
         <div className="flex items-center mb-2">
             <Image src={`/avatar/${image}`} alt={`${username}'s profile`} width={40} height={40} className="w-10 h-10 rounded-full mr-3" />
             <div>
-                <p className="font-semibold text-gray-700 flex items-center" title={bio}>
+                <Link href={`${username}`} className="font-semibold text-gray-700 flex items-center" title={bio}>
                     {username}
                     {isNew && <span className="text-yellow-500 ml-2" title={image}>✨</span>}
-                </p>
+                </Link>
                 <div className="relative inline-block text-xs text-gray-500" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} >
                     <p className="text-xs text-gray-500" > {formattedDate(createdAt)} </p>
                     {isHovered && (
