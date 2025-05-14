@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 
 const LikeButton = ({ postId, initialLikes, isInitiallyLiked = false, onLikeChange }) => {
@@ -9,22 +9,34 @@ const LikeButton = ({ postId, initialLikes, isInitiallyLiked = false, onLikeChan
 
   const debounceTimeoutRef = useRef(null);
   const isRequestInProgressRef = useRef(false);
-  const latestIntentRef = useRef(null); // true = like, false = unlike
-  const confirmedLikeStateRef = useRef(false); // backend-confirmed like status
+  
+  // Initialize confirmed state refs with initial values
+  const confirmedLikeStateRef = useRef(isInitiallyLiked);
   const confirmedLikeCountRef = useRef(initialLikes);
 
-  const syncUIFromServerState = (liked, count) => {
-    setIsLiked(liked);
-    setLikeCount(count);
-    confirmedLikeStateRef.current = liked;
-    confirmedLikeCountRef.current = count;
-    if (onLikeChange) onLikeChange(count);
+  // Set the confirmed state on mount and when initial props change
+  useEffect(() => {
+    confirmedLikeStateRef.current = isInitiallyLiked;
+    confirmedLikeCountRef.current = initialLikes;
+  }, [isInitiallyLiked, initialLikes]);
+
+  const syncUIWithConfirmedState = () => {
+    setIsLiked(confirmedLikeStateRef.current);
+    setLikeCount(confirmedLikeCountRef.current);
+    if (onLikeChange) onLikeChange(confirmedLikeCountRef.current);
   };
 
-  const triggerServerUpdate = async (intent) => {
-    if (isRequestInProgressRef.current) return;
+  const updateConfirmedState = (liked, count) => {
+    confirmedLikeStateRef.current = liked;
+    confirmedLikeCountRef.current = count;
+    syncUIWithConfirmedState();
+  };
 
+  const triggerServerUpdate = async (newLikeState) => {
+    if (isRequestInProgressRef.current) return;
+    
     isRequestInProgressRef.current = true;
+    
     try {
       const response = await fetch("/api/likeUnlike", {
         method: "POST",
@@ -34,33 +46,34 @@ const LikeButton = ({ postId, initialLikes, isInitiallyLiked = false, onLikeChan
 
       const data = await response.json();
 
-      if (response.status === 401) {
-        setErrorMessage("You need to log in to like posts");
-        setTimeout(() => setErrorMessage(""), 3000);
-        // Rollback to confirmed state
-        syncUIFromServerState(confirmedLikeStateRef.current, confirmedLikeCountRef.current);
+      if (!response.ok) {
+        if (response.status === 401) {
+          setErrorMessage("You need to log in to like posts");
+          setTimeout(() => setErrorMessage(""), 3000);
+        } else {
+          setErrorMessage("Failed to update like status");
+          setTimeout(() => setErrorMessage(""), 3000);
+        }
+        
+        // Revert UI to confirmed state
+        syncUIWithConfirmedState();
       } else {
-        const newLikeState = intent;
+        // Server request was successful, update the confirmed state
         const newCount = newLikeState
           ? confirmedLikeCountRef.current + 1
           : confirmedLikeCountRef.current - 1;
-
-        syncUIFromServerState(newLikeState, newCount);
+        
+        updateConfirmedState(newLikeState, newCount);
       }
     } catch (err) {
       console.error("Error updating like:", err);
-      syncUIFromServerState(confirmedLikeStateRef.current, confirmedLikeCountRef.current);
+      setErrorMessage("Network error. Please try again.");
+      setTimeout(() => setErrorMessage(""), 3000);
+      
+      // Revert UI to confirmed state
+      syncUIWithConfirmedState();
     } finally {
       isRequestInProgressRef.current = false;
-
-      // Check if user changed intent again during request
-      if (latestIntentRef.current !== confirmedLikeStateRef.current) {
-        // Restart debounce for the new intent
-        if (debounceTimeoutRef.current) clearTimeout(debounceTimeoutRef.current);
-        debounceTimeoutRef.current = setTimeout(() => {
-          triggerServerUpdate(latestIntentRef.current);
-        }, 1000);
-      }
     }
   };
 
@@ -68,23 +81,26 @@ const LikeButton = ({ postId, initialLikes, isInitiallyLiked = false, onLikeChan
     const newLikeState = !isLiked;
     const newCount = newLikeState ? likeCount + 1 : likeCount - 1;
 
-    // UI feedback instantly
+    // Update UI immediately for responsiveness
     setIsLiked(newLikeState);
     setLikeCount(newCount);
     setAnimate(true);
     setTimeout(() => setAnimate(false), 300);
 
+    // Callback for parent component
     if (onLikeChange) onLikeChange(newCount);
 
-    // Cancel any pending debounce
-    if (debounceTimeoutRef.current) clearTimeout(debounceTimeoutRef.current);
+    // Cancel any pending request
+    if (debounceTimeoutRef.current) {
+      clearTimeout(debounceTimeoutRef.current);
+    }
 
-    // Save intent
-    latestIntentRef.current = newLikeState;
-
-    // Set new debounce timer
+    // Debounce the server request
     debounceTimeoutRef.current = setTimeout(() => {
-      triggerServerUpdate(newLikeState);
+      // Only send request if the new state differs from confirmed state
+      if (newLikeState !== confirmedLikeStateRef.current) {
+        triggerServerUpdate(newLikeState);
+      }
     }, 1000);
   };
 
@@ -93,6 +109,7 @@ const LikeButton = ({ postId, initialLikes, isInitiallyLiked = false, onLikeChan
       <button
         onClick={handleClick}
         className={`focus:outline-none transition-transform duration-300 ${animate ? "scale-125" : "scale-100"}`}
+        aria-label={isLiked ? "Unlike post" : "Like post"}
       >
         {isLiked ? (
           <AiFillHeart className="text-orange-500 text-2xl" />
