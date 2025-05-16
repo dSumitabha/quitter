@@ -47,7 +47,7 @@ export default function UserInfo({ user }) {
     if (confirmText !== 'DELETE') return;
 
     try {
-      const res = await fetch('/api/deleteUser', { method: 'DELETE' });
+      const res = await fetch('/api/userDelete', { method: 'DELETE' });
       const data = await res.json();
 
       if (res.ok) {
