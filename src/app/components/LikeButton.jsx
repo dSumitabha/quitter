@@ -114,10 +114,10 @@ const LikeButton = ({ postId, initialLikes, isInitiallyLiked = false, onLikeChan
         {isLiked ? (
           <AiFillHeart className="text-orange-500 text-2xl" />
         ) : (
-          <AiOutlineHeart className="text-gray-500 text-2xl" />
+          <AiOutlineHeart className="text-gray-500  text-2xl" />
         )}
       </button>
-      <span>{likeCount} likes</span>
+      <span className="text-slate-600 dark:text-slate-400">{likeCount} likes</span>
       {errorMessage && (
         <div className="text-sm text-red-500 mt-1 transition-opacity duration-300 opacity-100">
           {errorMessage}
