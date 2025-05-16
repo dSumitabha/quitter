@@ -113,13 +113,7 @@ export default function UserInfo({ user }) {
             <p className="text-sm text-gray-700 mb-4">
               This action cannot be undone. Type <strong className="text-red-500">DELETE</strong> to confirm.
             </p>
-            <input
-              type="text"
-              placeholder="Type DELETE"
-              className="w-full border border-gray-300 rounded px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-red-500"
-              value={confirmText}
-              onChange={(e) => setConfirmText(e.target.value)}
-            />
+            <input type="text" placeholder="Type DELETE" className="w-full border dark:text-slate-950 border-gray-300 rounded px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-red-500" value={confirmText} onChange={(e) => setConfirmText(e.target.value)}/>
             <div className="flex justify-end space-x-2">
               <button
                 onClick={() => {
@@ -130,15 +124,7 @@ export default function UserInfo({ user }) {
               >
                 Cancel
               </button>
-              <button
-                onClick={handleDeleteProfile}
-                disabled={confirmText !== 'DELETE'}
-                className={`px-4 py-2 rounded text-white ${
-                  confirmText === 'DELETE' ? 'bg-red-600 hover:bg-red-700' : 'bg-red-300 cursor-not-allowed'
-                }`}
-              >
-                Delete
-              </button>
+              <button onClick={handleDeleteProfile} disabled={confirmText !== 'DELETE'} className={`px-4 py-2 rounded text-white ${ confirmText === 'DELETE' ? 'bg-red-600 hover:bg-red-700' : 'bg-red-300 cursor-not-allowed'}`} > Delete </button>
             </div>
           </div>
         </div>
