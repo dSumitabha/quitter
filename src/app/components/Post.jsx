@@ -39,7 +39,7 @@ const Post = ({ postId, username, content, likes, createdAt, image, bio, isNew, 
         <div className="flex items-center mb-2">
             <Image src={`/avatar/${image}`} alt={`${username}'s profile`} width={40} height={40} className="w-10 h-10 rounded-full mr-3" />
             <div>
-                <Link href={`${username}`} className="font-semibold text-gray-700 dark:text-slate-300 flex items-center" title={bio}>
+                <Link href={`${username}`} className="font-semibold text-gray-700 dark:text-slate-400 flex items-center" title={bio}>
                     {username}
                     {isNew && <span className="text-yellow-500 ml-2" title={image}>✨</span>}
                 </Link>
@@ -56,8 +56,8 @@ const Post = ({ postId, username, content, likes, createdAt, image, bio, isNew, 
                 </div>
             </div>
         </div>
-        <p className="text-slate-800 dark:text-slate-200 mb-2">{content}</p>
-        <div className="text-sm text-gray-500">
+        <p className="text-slate-800 dark:text-slate-300 mb-2">{content}</p>
+        <div className="text-sm text-gray-500 dark:text-slate-50">
             <LikeButton postId={postId} initialLikes={likes} isInitiallyLiked={isLiked} onLikeChange={handleLikeChange} />
         </div>
     </div>
