@@ -4,7 +4,6 @@ import User from '@/models/User';
 import Like from '@/models/Like';
 import connectDB from '@/lib/db';
 
-// Utility to verify JWT
 async function verifyToken(token) {
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
   const { payload } = await jwtVerify(token, secret);
