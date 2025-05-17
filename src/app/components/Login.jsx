@@ -7,11 +7,11 @@ const Login = ({ handleChange, formData, handleSubmit }) => {
       <div className="rounded-md shadow-sm space-y-4">
         <div>
           <label htmlFor="username" className="sr-only">Username</label>
-          <input id="username" name="username" type="text" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Username" value={formData.username} onChange={handleChange}/>
+          <input id="username" name="username" type="text" required className="appearance-none rounded-none relative block w-full px-3 py-2 dark:bg-slate-700 border border-gray-300 dark:border-gray-600 placeholder-gray-600 dark:placeholder-gray-400 text-gray-900 dark:text-white rounded-t-md focus:outline-none focus:ring-blue-700 dark:focus:ring-blue-300 focus:border-blue-600 dark:focus:border-blue-400 focus:z-10 sm:text-sm" placeholder="Username" value={formData.username} onChange={handleChange}/>
         </div>
         <div>
           <label htmlFor="password" className="sr-only">Password</label>
-          <input id="password" name="password" type="password" required className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" placeholder="Password" value={formData.password} onChange={handleChange}/>
+          <input id="password" name="password" type="password" required className="appearance-none rounded-none relative block w-full px-3 py-2 dark:bg-slate-700 border border-gray-300 dark:border-gray-600 placeholder-gray-600 dark:placeholder-gray-400 text-gray-900 dark:text-white rounded-b-md focus:outline-none focus:ring-blue-500 dark:focus:ring-blue-300 focus:border-blue-600 dark:focus:border-blue-400 focus:z-10 sm:text-sm" placeholder="Password" value={formData.password} onChange={handleChange}/>
         </div>
       </div>
 
