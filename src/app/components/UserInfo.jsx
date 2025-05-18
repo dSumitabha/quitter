@@ -108,19 +108,19 @@ export default function UserInfo({ user }) {
       </div>
       {showDeleteModal && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-end sm:items-center justify-center p-4">
-          <div className="bg-white rounded-t-xl sm:rounded-lg w-full sm:max-w-sm p-6 shadow-lg">
-            <h2 className="text-lg font-semibold text-red-600 mb-2">Delete Profile</h2>
-            <p className="text-sm text-gray-700 mb-4">
-              This action cannot be undone. Type <strong className="text-red-500">DELETE</strong> to confirm.
+          <div className="bg-white dark:bg-slate-800 rounded-t-xl sm:rounded-lg w-full sm:max-w-sm p-6 shadow-lg">
+            <h2 className="text-lg font-semibold text-red-600 dark:text-red-400 mb-2">Delete Profile</h2>
+            <p className="text-sm text-gray-700 dark:text-gray-300 mb-4">
+              This action cannot be undone. Type <strong className="text-red-600 dark:text-red-400">DELETE</strong> to confirm.
             </p>
-            <input type="text" placeholder="Type DELETE" className="w-full border dark:text-slate-950 border-gray-300 rounded px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-red-500" value={confirmText} onChange={(e) => setConfirmText(e.target.value)}/>
+            <input type="text" placeholder="Type DELETE" className="w-full dark:bg-slate-700 border text-slate-950 dark:text-slate-50 border-gray-300 dark:border-gray-500 rounded px-3 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-red-500" value={confirmText} onChange={(e) => setConfirmText(e.target.value)}/>
             <div className="flex justify-end space-x-2">
               <button
                 onClick={() => {
                   setShowDeleteModal(false);
                   setConfirmText('');
                 }}
-                className="px-4 py-2 text-gray-700 rounded hover:bg-gray-100"
+                className="px-4 py-2 text-gray-700 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 Cancel
               </button>
