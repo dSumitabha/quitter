@@ -24,7 +24,7 @@ const NavBar = () => {
 
         {/* Profile */}
         <li className="text-center">
-          <Link href="/profile" className="flex flex-col items-center text-gray-300 dark:text-gray-300 hover:text-blue-500">
+          <Link href="/profile" className="flex flex-col items-center text-gray-700 dark:text-gray-300 hover:text-blue-500">
             <AiOutlineUser className="w-6 h-6" />
             <span className="text-xs mt-1">Profile</span>
           </Link>
