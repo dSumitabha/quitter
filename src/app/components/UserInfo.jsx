@@ -71,7 +71,7 @@ export default function UserInfo({ user }) {
 
   return (
     <>
-      <div className="bg-white rounded-lg shadow-lg max-w-md mx-auto p-6 relative">
+      <div className="bg-white dark:bg-slate-950 rounded-lg shadow-lg max-w-md mx-auto p-6 relative">
         {/* Inline toast-style message */}
         {message && (
           <div className={`absolute top-16 left-1/2 transform -translate-x-1/2 mt-[-2.5rem] px-4 py-2 rounded-md text-sm font-medium transition-opacity duration-300 ${ messageType === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
@@ -92,18 +92,18 @@ export default function UserInfo({ user }) {
 
           {/* User Info */}
           <div>
-            <h1 className="text-2xl font-bold text-gray-800">{user.username}</h1>
-            <p className="text-sm text-gray-500">{user.bio}</p>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-200">{user.username}</h1>
+            <p className="text-sm text-gray-700 dark:text-gray-400">{user.bio}</p>
           </div>
         </div>
 
         {/* Menu Toggle */}
-        <span className="absolute top-4 right-4 text-neutral-800 cursor-pointer" onClick={() => setShowMenu(!showMenu)}>◦◦◦</span>
+        <span className="absolute top-4 right-4 text-neutral-800 dark:text-neutral-200 cursor-pointer" onClick={() => setShowMenu(!showMenu)}>◦◦◦</span>
 
         {/* Dropdown Menu */}
-        <div className={`absolute top-8 right-4 w-fit bg-neutral-50 shadow-md p-1 text-neutral-800 ${ showMenu ? 'block' : 'hidden'}`}>
-          <button onClick={handleLogout} className="block w-full text-left px-3 py-1 hover:bg-neutral-200">Logout</button>
-          <button onClick={() => setShowDeleteModal(true)} className="block w-full text-left px-3 py-1 hover:bg-neutral-200">Delete Profile</button>
+        <div className={`absolute top-8 right-4 w-fit bg-neutral-50 dark:bg-neutral-800 shadow-md p-1 text-neutral-800 dark:text-neutral-200 ${ showMenu ? 'block' : 'hidden'}`}>
+          <button onClick={handleLogout} className="block w-full text-left px-3 py-1 hover:bg-neutral-200 dark:hover:bg-neutral-700">Logout</button>
+          <button onClick={() => setShowDeleteModal(true)} className="block w-full text-left px-3 py-1 hover:bg-neutral-200 dark:hover:bg-neutral-700">Delete Profile</button>
         </div>
       </div>
       {showDeleteModal && (
