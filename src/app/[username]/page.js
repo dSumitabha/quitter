@@ -90,15 +90,15 @@ const User = () => {
   );
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="my-2 max-w-md mx-auto">Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="my-2 max-w-md mx-auto">Error: {error}</div>;
   }
 
   if (!user) {
-    return <div>User not found</div>;
+    return <div className="my-2 max-w-md mx-auto">User not found</div>;
   }
 
   return (
