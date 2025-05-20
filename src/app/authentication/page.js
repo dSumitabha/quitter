@@ -51,7 +51,7 @@ const Authentication = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setMessage(isRegistering ? 'Registration successful' : 'Login successful');
+        setMessage(isRegistering ? 'Registration successful, you will be redirected to profile page with 2sec, if not please click the profile button ' : 'Login successful, you will be redirected to profile page with 2sec, if not please click the profile button');
         
         setTimeout(() => {
           setRedirecting(true); // Initiate redirection
