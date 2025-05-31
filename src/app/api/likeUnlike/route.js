@@ -20,7 +20,7 @@ export async function POST(request) {
     if (!postId) {
       return NextResponse.json({ error: 'Post ID is required' }, { status: 400 });
     }
-
+console.log(postId + "will be liked by " + userId);
     let likeDoc = await Like.findOne({ userId });
 
     if (!likeDoc) {
