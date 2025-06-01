@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 // Define schema
 const postSchema = new mongoose.Schema({
+    _id: { type: mongoose.Schema.Types.ObjectId, required: true },
     userId: { type: mongoose.Schema.Types.ObjectId, required: true },
     content: { type: String, required: true },
     likes: { type: Number, default: 0 },

@@ -57,6 +57,7 @@ const Post = ({ postId, username, content, likes, createdAt, image, bio, isNew, 
             </div>
         </div>
         <p className="text-slate-800 dark:text-slate-300 mb-2">{content}</p>
+        {/* <small className="text-xs">{postId}</small> */}
         <div className="text-sm text-gray-500 dark:text-slate-50">
             <LikeButton postId={postId} initialLikes={likes} isInitiallyLiked={isLiked} onLikeChange={handleLikeChange} />
         </div>
