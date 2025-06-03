@@ -32,6 +32,7 @@ export async function GET() {
         await connectDB(); // Ensure DB connection
         // Format posts before saving
         const formattedPosts = newPosts.map(post => ({
+            _id: post._id,
             userId: post.userId, // Ensure this is an ObjectId
             content: post.post, // Convert 'post' to 'content'
             likes: 0,
