@@ -69,7 +69,7 @@ const Feed = () => {
   console.log(enrichedPosts)
 
   return (
-    <div className="max-w-md mx-auto mt-4">
+    <div className="max-w-md mx-auto pt-16 ">
       {enrichedPosts.map((post, index) => (
         <Post
           key={`${post.name}-${index}`}
