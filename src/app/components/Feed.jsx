@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import useIntersection from "../utils/IntersectionObserver";
+import Header from "./Header";
 
 import Post from "./Post";
 
@@ -15,6 +16,8 @@ const Feed = () => {
   const [error, setError] = useState(null);
   const POSTS_TO_KEEP = 20;
   const POSTS_TO_REMOVE = 10;
+
+  const [feedType, setFeedType] = useState("mixed");
 
   const fetchPosts = useCallback(async (pageNum) => {
     if (!hasMore || loading) return;
@@ -69,50 +72,54 @@ const Feed = () => {
   console.log(enrichedPosts)
 
   return (
-    <div className="max-w-md mx-auto pt-16 ">
-      {enrichedPosts.map((post, index) => (
-        <Post
-          key={`${post.name}-${index}`}
-          postId={post._id}
-          username={post.username}
-          content={post.post}
-          likes={post.likes}
-          createdAt={post.createdAt}
-          image={post.image}
-          bio={post.bio}          
-          isNew={true}
-        />
-      ))}
+    <>
+      <Header selected={feedType} setSelected={setFeedType}/>
+      <div className="max-w-md mx-auto pt-16 ">
+        <p>{feedType } is selected now.</p>
+        {enrichedPosts.map((post, index) => (
+          <Post
+            key={`${post.name}-${index}`}
+            postId={post._id}
+            username={post.username}
+            content={post.post}
+            likes={post.likes}
+            createdAt={post.createdAt}
+            image={post.image}
+            bio={post.bio}          
+            isNew={true}
+          />
+        ))}
 
-        {/* Intersection Observer Target */}
-      {hasMore && (
-        <div ref={observerRef} className="w-full h-16 flex justify-center items-center text-gray-500">
-          {loading ? "Loading more posts..." : "Scroll down to load more"}
-        </div>
-      )}
-      
-      
-      {!hasMore && posts.length > 0 && (
-        <div className="p-4 text-center text-gray-500">
-          No more posts to load
-        </div>
-      )}
+          {/* Intersection Observer Target */}
+        {hasMore && (
+          <div ref={observerRef} className="w-full h-16 flex justify-center items-center text-gray-500">
+            {loading ? "Loading more posts..." : "Scroll down to load more"}
+          </div>
+        )}
+        
+        
+        {!hasMore && posts.length > 0 && (
+          <div className="p-4 text-center text-gray-500">
+            No more posts to load
+          </div>
+        )}
 
-      {error && (
-        <div className="p-4 text-center text-red-600">
-          {error}
-          <button 
-            onClick={() => {
-              setError(null);
-              fetchPosts(page);
-            }}
-            className="ml-2 underline"
-          >
-            Retry
-          </button>
-        </div>
-      )}
-    </div>
+        {error && (
+          <div className="p-4 text-center text-red-600">
+            {error}
+            <button 
+              onClick={() => {
+                setError(null);
+                fetchPosts(page);
+              }}
+              className="ml-2 underline"
+            >
+              Retry
+            </button>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

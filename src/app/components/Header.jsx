@@ -5,10 +5,9 @@ import { BsRobot } from "react-icons/bs";
 import { RiShuffleLine } from "react-icons/ri";
 import { FaUser } from "react-icons/fa";
 
-const Header = () => {
+const Header = ({ selected, setSelected }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [selected, setSelected] = useState("mixed"); // 'ai', 'mixed', 'human'
 
   useEffect(() => {
     const handleScroll = () => {
