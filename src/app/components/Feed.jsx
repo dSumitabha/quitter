@@ -71,8 +71,9 @@ const Feed = () => {
   const enrichedPosts = useMemo(() => {
     return posts.map((post) => ({
       ...post,
-      image: topics.find((t) => t.id === post.userId)?.image || "default-avatar.png",
-      bio: topics.find((t) => t.id === post.userId)?.bio || ""
+      username: topics.find((t) => t._id === post.userId)?.username || "",
+      image: topics.find((t) => t._id === post.userId)?.image || "default-avatar.png",
+      bio: topics.find((t) => t._id === post.userId)?.bio || ""
 
     }));
   }, [posts, topics]);

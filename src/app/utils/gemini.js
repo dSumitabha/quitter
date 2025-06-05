@@ -16,7 +16,7 @@ export async function callGeminiAPI(topics) {
 
   try {
     const result = await model.generateContent(prompt);
-    const userIds = topics.map(topic => topic.id);  // Extract userIds
+    const userIds = topics.map(topic => topic._id);  // Extract userIds
 
     const response = result.response.candidates[0].content.parts[0].text;
 

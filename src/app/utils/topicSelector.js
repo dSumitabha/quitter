@@ -19,7 +19,7 @@ export async function selectTopics(count = 5) {
         
         // Return array of objects with id, username, and image
         return selected.map(user => ({
-            id: user.id,
+            _id: user.id,
             username: user.username,
             image: user.image,
             bio: user.bio
