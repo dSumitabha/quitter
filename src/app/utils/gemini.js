@@ -29,13 +29,17 @@ export async function callGeminiAPI(topics) {
     let posts = JSON.parse(cleanedResponse);
     // Add the "createdAt" field to each post
     
-    posts = posts.map((post, index) => ({
-      ...post,
-      _id: new ObjectId(), // Generate a new ObjectId for each post
-      userId: userIds[index],         // Map userId from the topics array
-      createdAt: new Date().toISOString(), // Current timestamp in ISO format
-      likes : 0,
-    }));
+    posts = posts.map((post, index) => {
+      const { post: postContent, ...rest } = post; // extract `post`, keep the rest
+      return {
+        ...rest,
+        content: postContent, // rename `post` to `content`
+        _id: new ObjectId(), // new ObjectId
+        userId: userIds[index],
+        createdAt: new Date().toISOString(),
+        likes: 0,
+      };
+    });
     return posts; // Return the JSON array of posts
   } catch (error) {
     console.error("Error generating posts:", error);

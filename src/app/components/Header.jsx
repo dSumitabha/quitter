@@ -22,9 +22,9 @@ const Header = ({ selected, setSelected }) => {
   }, [lastScrollY]);
 
   const options = [
-    { id: "ai", label: "AI", icon: <BsRobot /> },
-    { id: "mixed", label: "Mixed", icon: <RiShuffleLine /> },
-    { id: "human", label: "Human", icon: <FaUser /> },
+    { id: 1, label: "AI", icon: <BsRobot /> },
+    { id: 2, label: "Mixed", icon: <RiShuffleLine /> },
+    { id: 0, label: "Human", icon: <FaUser /> },
   ];
 
   return (

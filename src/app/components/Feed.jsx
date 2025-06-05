@@ -17,14 +17,20 @@ const Feed = () => {
   const POSTS_TO_KEEP = 20;
   const POSTS_TO_REMOVE = 10;
 
-  const [feedType, setFeedType] = useState("mixed");
+  const [feedType, setFeedType] = useState(2);
 
-  const fetchPosts = useCallback(async (pageNum) => {
+  const fetchPosts = useCallback(async (pageNum, currentFeedType) => {
     if (!hasMore || loading) return;
     
     setLoading(true);
     try {
-      const response = await fetch(`/api/generate`);
+
+      let response;
+      if (currentFeedType === 1) {
+        response = await fetch(`/api/generate`);
+      } else {
+        response = await fetch(`/api/posts?page=${pageNum}`);
+      }
 
       const { posts: newPosts, totalPages, currentPage, topics: topicsData } = await response.json();
 
@@ -44,15 +50,20 @@ const Feed = () => {
   }, [hasMore]);
 
   const handleLoadMore = () => {
-    if (!loading && hasMore) {
+    if (!loading && hasMore && feedType !== 1) {
       setPage(prevPage => prevPage + 1);
     }
   };
 
   // Initial load
   useEffect(() => {
-    fetchPosts(page);
-  }, [page, fetchPosts]);
+    fetchPosts(page, feedType);
+  }, [page, feedType, fetchPosts]);
+
+  useEffect(() => {
+    setPosts([]);
+    setPage(1);
+  }, [feedType])
 
   // Memoize enriched posts
   // Now posts already contain name and post content directly
@@ -75,18 +86,18 @@ const Feed = () => {
     <>
       <Header selected={feedType} setSelected={setFeedType}/>
       <div className="max-w-md mx-auto pt-16 ">
-        <p>{feedType } is selected now.</p>
+        {/* <p>{feedType } is selected now.</p> */}
         {enrichedPosts.map((post, index) => (
           <Post
-            key={`${post.name}-${index}`}
+            key={post._id}
             postId={post._id}
             username={post.username}
-            content={post.post}
+            content={post.content}
             likes={post.likes}
             createdAt={post.createdAt}
             image={post.image}
             bio={post.bio}          
-            isNew={true}
+            isNew={feedType ? true : false}
           />
         ))}
 
