@@ -36,8 +36,9 @@ export async function callGeminiAPI(topics) {
         content: postContent, // rename `post` to `content`
         _id: new ObjectId(), // new ObjectId
         userId: userIds[index],
-        createdAt: new Date().toISOString(),
+        source: 1, // Default AI-generated source
         likes: 0,
+        createdAt: new Date().toISOString(),
       };
     });
     return posts; // Return the JSON array of posts

@@ -30,18 +30,9 @@ export async function GET() {
     (async () => {
         try {
         await connectDB(); // Ensure DB connection
-        // Format posts before saving
-        const formattedPosts = newPosts.map(post => ({
-            _id: post._id,
-            userId: post.userId, // Ensure this is an ObjectId
-            content: post.post, // Convert 'post' to 'content'
-            likes: 0,
-            source: 1, // Default AI-generated source
-            createdAt: post.createdAt || new Date()
-        }));
 
         // Insert into database
-        await Post.insertMany(formattedPosts);
+        await Post.insertMany(newPosts);
         console.log("New posts saved to DB");
         } catch (dbError) {
         console.error("Error saving posts to DB:", dbError);
