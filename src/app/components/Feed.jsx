@@ -40,7 +40,12 @@ const Feed = () => {
       });
       
       setTopics(topicsData);
-      setHasMore(currentPage < totalPages);
+      if(currentFeedType === 1){
+        setHasMore(true);
+      }
+      else{
+        setHasMore(currentPage < totalPages);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
       setError("Failed to load posts");
@@ -119,11 +124,10 @@ const Feed = () => {
         {error && (
           <div className="p-4 text-center text-red-600">
             {error}
-            <button 
-              onClick={() => {
-                setError(null);
-                fetchPosts(page);
-              }}
+            <button onClick={() => {
+                                setError(null);
+                                fetchPosts(page);
+                            }}
               className="ml-2 underline"
             >
               Retry
