@@ -41,7 +41,7 @@ const Post = ({ postId, username, content, likes, createdAt, image, bio, isNew, 
             <div>
                 <Link href={`${username}`} className="font-semibold text-gray-700 dark:text-slate-400 hover:text-blue-600 flex items-center" title={bio}>
                     {username}
-                    {isNew && <span className="text-yellow-500 ml-2" title={image}>✨</span>}
+                    {isNew && <span className="text-yellow-500 ml-2" title={'ai generated'}>✨</span>}
                 </Link>
                 <div className="relative inline-block text-xs text-gray-500 dark:text-slate-500" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} >
                     <p className="text-xs text-gray-500" > {formattedDate(createdAt)} </p>
