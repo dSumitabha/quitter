@@ -88,7 +88,7 @@ const User = () => {
     },
     [loading, hasMore, fetchMorePosts]
   );
-
+/* This is a failure comment. */
   if (loading) {
     return <div className="my-2 max-w-md mx-auto">Loading...</div>;
   }
