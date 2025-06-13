@@ -32,6 +32,14 @@ const Feed = () => {
 
       const { posts: newPosts, totalPages, currentPage, topics: topicsData } = await response.json();
 
+      // Update topics first to ensure user data is available
+      setTopics(prevTopics => {
+        // Merge with existing topics, avoiding duplicates
+        const existingTopicIds = new Set(prevTopics.map(topic => topic._id));
+        const newTopics = topicsData.filter(topic => !existingTopicIds.has(topic._id));
+        return [...prevTopics, ...newTopics];
+      });
+
       setPosts(prevPosts => {
         // For AI mode, we might want to prevent duplicates
         if (currentFeedType === 1) {
@@ -42,8 +50,6 @@ const Feed = () => {
         }
         return [...prevPosts, ...newPosts];
       });
-      
-      setTopics(topicsData);
       
       if (currentFeedType === 1) {
         setHasMore(true);
@@ -79,6 +85,7 @@ const Feed = () => {
   // Handle feed type changes
   useEffect(() => {
     setPosts([]);
+    setTopics([]); // Also clear topics to prevent stale data
     setPage(1);
     setHasMore(true);
     setError(null);
@@ -89,14 +96,18 @@ const Feed = () => {
     }
   }, [feedType, fetchPosts]);
 
-  // Memoize enriched posts
+  // Enhanced memoized enriched posts with better error handling
   const enrichedPosts = useMemo(() => {
-    return posts.map((post) => ({
-      ...post,
-      username: topics.find((t) => t._id === post.userId)?.username || "",
-      image: topics.find((t) => t._id === post.userId)?.image || "default-avatar.png",
-      bio: topics.find((t) => t._id === post.userId)?.bio || ""
-    }));
+    return posts.map((post) => {
+      const userTopic = topics.find((t) => t._id === post.userId);
+      
+      return {
+        ...post,
+        username: userTopic?.username || post.username || `User_${post.userId?.slice(-4) || 'Unknown'}`,
+        image: userTopic?.image || post.image || "default-avatar.png",
+        bio: userTopic?.bio || post.bio || ""
+      };
+    });
   }, [posts, topics]);
 
   const observerRef = useIntersection(handleLoadMore, loading);
@@ -107,7 +118,7 @@ const Feed = () => {
       <div className="max-w-md mx-auto pt-16">
         {enrichedPosts.map((post, index) => (
           <Post
-            key={post._id} // Better key to handle potential duplicates
+            key={post._id}
             postId={post._id}
             username={post.username}
             content={post.content}
