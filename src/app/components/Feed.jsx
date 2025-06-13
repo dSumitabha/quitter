@@ -107,7 +107,7 @@ const Feed = () => {
       <div className="max-w-md mx-auto pt-16">
         {enrichedPosts.map((post, index) => (
           <Post
-            key={`${post._id}-${index}`} // Better key to handle potential duplicates
+            key={post._id} // Better key to handle potential duplicates
             postId={post._id}
             username={post.username}
             content={post.content}
