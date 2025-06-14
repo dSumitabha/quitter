@@ -13,16 +13,16 @@ export async function GET(request) {
     const page = parseInt(url.searchParams.get('page')) || 1;
     const limit = 10;
 
-    const posts = await Post.find()
+    const posts = await Post.find({ source: 1 })
       .skip((page - 1) * limit)
       .limit(limit)
       .sort({ createdAt: -1, _id: -1 });
 
-    const totalPosts = await Post.countDocuments();
+    const totalPosts = await Post.countDocuments({ source: 1 });
     const totalPages = Math.ceil(totalPosts / limit);
 
     const userIds = posts.map(post => post.userId);
-    const users = await User.find({ _id: { $in: userIds } });
+    const users = await User.find({ _id: { $in: userIds } }).select("-password");
 
     // --- AUTH: Get userId from JWT token ---
     const cookieStore = await cookies();
