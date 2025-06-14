@@ -1,14 +1,13 @@
 import React from 'react';
 import CreatePost from '../components/CreatePost';
 import '../globals.css';
-
-import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers';
+import jwt from 'jsonwebtoken';
 
 export default async function CreatePostPage() {
   let isAuthenticated = false;
 
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const token = cookieStore.get('token')?.value;
 
   if (token) {

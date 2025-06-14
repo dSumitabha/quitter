@@ -2,9 +2,13 @@ import { NextResponse } from 'next/server';
 import { jwtVerify } from 'jose';
 import Post from '@/models/Post';
 import connectDB from '@/lib/db';
+import { cookies } from 'next/headers';
+import { ObjectId } from "mongodb";
+
 
 export async function POST(request) {
   try {
+    console.log('i am at start.')
     await connectDB();
 
     const body = await request.json();
@@ -15,7 +19,8 @@ export async function POST(request) {
     }
 
     // Extract token from cookies
-    const token = request.cookies.get('token')?.value;
+    const cookieStore = await cookies();
+    const token = cookieStore.get('token')?.value;
 
     if (!token) {
       return NextResponse.json({ error: 'Unauthorized: No token provided.' }, { status: 401 });
@@ -32,6 +37,7 @@ export async function POST(request) {
     }
 
     const newPost = new Post({
+      _id : new ObjectId,
       userId: payload.userId,
       content,
       source: 0
