@@ -18,7 +18,7 @@ export async function GET(request) {
       .limit(limit)
       .sort({ createdAt: -1, _id: -1 });
 
-    const totalPosts = await Post.countDocuments();
+    const totalPosts = await Post.countDocuments({ source: 0 });
     const totalPages = Math.ceil(totalPosts / limit);
 
     const userIds = posts.map(post => post.userId);

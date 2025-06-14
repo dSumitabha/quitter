@@ -26,8 +26,11 @@ const Feed = () => {
       let response;
       if (currentFeedType === 1) {
         response = await fetch(`/api/generate`);
-      } else {
+      } else  if (currentFeedType === 2) {
         response = await fetch(`/api/posts?page=${pageNum}`);
+      }
+      else {
+        response = await fetch(`/api/human-posts?page=${pageNum}`);
       }
 
       const { posts: newPosts, totalPages, currentPage, topics: topicsData } = await response.json();
