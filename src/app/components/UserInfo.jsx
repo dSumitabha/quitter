@@ -88,6 +88,14 @@ export default function UserInfo({ user }) {
                 AI
               </span>
             )}
+            
+            {/* Hover Edit Overlay */}
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm rounded-full flex-col justify-center items-center text-white hidden group-hover:flex">
+              <Pencil size={16} className="mb-1" />
+              <span className="text-xs font-medium">Edit</span>
+            </div>
+
+            <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleFileChange} />
           </div>
 
           {/* User Info */}
