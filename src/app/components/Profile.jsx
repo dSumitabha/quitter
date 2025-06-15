@@ -98,7 +98,7 @@ const Profile = () => {
   return (
     <div className="min-h-screen py-6 px-4 sm:px-6 lg:px-8">
       {/* Profile Header */}
-      <UserInfo user={user}/>
+      <UserInfo user={user} isOwner={true} />
 
       {/* User Posts Section */}
       <div className="my-2 max-w-md mx-auto">

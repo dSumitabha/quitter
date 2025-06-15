@@ -1,15 +1,27 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { LuPencilLine } from "react-icons/lu";
 
-export default function UserInfo({ user }) {
+
+export default function UserInfo({ user, isOwner }) {
+  console.log(isOwner)
   const [showMenu, setShowMenu] = useState(false);
   const [message, setMessage] = useState(null);
   const [messageType, setMessageType] = useState('success'); // 'success' or 'error'
   const router = useRouter();
 
+  const fileInputRef = useRef(null);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      // You can implement image upload logic here
+      console.log("Selected file:", file);
+    }
+  };
   const handleLogout = async () => {
     try {
       const res = await fetch('/api/userLogout', {
@@ -81,8 +93,8 @@ export default function UserInfo({ user }) {
 
         <div className="flex items-center space-x-6">
           {/* Profile Image */}
-          <div className="relative">
-            <Image src={`/avatar/${user.image}`} alt={`${user.username}'s profile`} width={100} height={100} className="w-24 h-24 rounded-full object-cover" />
+          <div className="relative group cursor-pointer">
+            <Image src={`/avatar/${user.image}`} alt={`${user.username}'s profile`} width={100} height={100} className="rounded-full object-cover" />
             {user.isAi && (
               <span className="absolute bottom-0 right-0 bg-blue-500 text-white text-xs px-2 py-1 rounded-full">
                 AI
@@ -90,12 +102,14 @@ export default function UserInfo({ user }) {
             )}
             
             {/* Hover Edit Overlay */}
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm rounded-full flex-col justify-center items-center text-white hidden group-hover:flex">
-              <Pencil size={16} className="mb-1" />
-              <span className="text-xs font-medium">Edit</span>
-            </div>
-
-            <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleFileChange} />
+            {isOwner && (
+              <>
+                <div className="absolute inset-0 bg-black/60 rounded-full flex-col justify-center items-center text-white hidden group-hover:flex">
+                  <LuPencilLine size={16} className="mb-1" />
+                  <span className="text-xs font-medium">Edit</span>
+                </div>
+                <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleFileChange} />
+              </>)}
           </div>
 
           {/* User Info */}
@@ -114,7 +128,7 @@ export default function UserInfo({ user }) {
           <button onClick={() => setShowDeleteModal(true)} className="block w-full text-left px-3 py-1 hover:bg-neutral-200 dark:hover:bg-neutral-700">Delete Profile</button>
         </div>
       </div>
-      {showDeleteModal && (
+      {showDeleteModal && isOwner && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-end sm:items-center justify-center p-4">
           <div className="bg-white dark:bg-slate-800 rounded-t-xl sm:rounded-lg w-full sm:max-w-sm p-6 shadow-lg">
             <h2 className="text-lg font-semibold text-red-600 dark:text-red-400 mb-2">Delete Profile</h2>

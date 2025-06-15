@@ -103,7 +103,7 @@ const User = () => {
 
   return (
     <div className="my-2 max-w-md mx-auto">
-      {user && <UserInfo user={user} />}
+      {user && <UserInfo user={user} isOwner={false} />}
       <h2 className="bg-white dark:bg-slate-800 py-4 text-center my-2 rounded-t-lg text-xl font-semibold text-neutral-800 dark:text-neutral-200">Posts</h2>
       {posts.length === 0 ? (
         <p className="bg-white dark:bg-slate-800 py-4 text-center my-2 rounded-t-lg text-neutral-500 dark:text-neutral-200">No posts available</p>
