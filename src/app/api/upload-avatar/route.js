@@ -4,6 +4,8 @@ import { writeFile } from 'fs/promises';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { cookies } from 'next/headers';
+import connectDB from '@/lib/db';
+import User from '@/models/User';
 
 // You can move this to a shared util
 function getJwtSecretKey() {
@@ -54,7 +56,24 @@ export async function POST(req) {
 
     await writeFile(filePath, buffer);
 
-    // ---- Step 4: Return filename ----
+      // ---- Step 4: DB update inside nested try-catch ----
+    try {
+        await connectDB();
+
+        const user = await User.findOne({ email: payload.email });
+
+        if (!user) {
+        return NextResponse.json({ error: 'User not found' }, { status: 404 });
+        }
+
+        user.image = filename;
+        await user.save();
+    } catch (dbErr) {
+        console.error('DB update error:', dbErr);
+        return NextResponse.json({ error: 'Failed to update avatar in database' }, { status: 500 });
+    }
+
+    // ---- Step 5: Return filename ----
     return NextResponse.json({ image: filename }, { status: 200 });
 
   } catch (err) {
