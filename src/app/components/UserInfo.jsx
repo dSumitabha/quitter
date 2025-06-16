@@ -173,16 +173,20 @@ export default function UserInfo({ user, isOwner }) {
           </div>
         </div>
 
-        {/* Menu Toggle */}
-        <span className="absolute top-4 right-4 text-neutral-800 dark:text-neutral-200 cursor-pointer" onClick={() => setShowMenu(!showMenu)}>◦◦◦</span>
+        {isOwner &&
+            
+            (<>
+              <span className="absolute top-4 right-4 text-neutral-800 dark:text-neutral-200 cursor-pointer" onClick={() => isOwner && setShowMenu(!showMenu)}>◦◦◦</span>
 
-        {/* Dropdown Menu */}
-        <div className={`absolute top-8 right-4 w-fit bg-neutral-50 dark:bg-neutral-800 shadow-md p-1 text-neutral-800 dark:text-neutral-200 ${ showMenu ? 'block' : 'hidden'}`}>
-          <button onClick={handleLogout} className="block w-full text-left px-3 py-1 hover:bg-neutral-200 dark:hover:bg-neutral-700">Logout</button>
-          <button onClick={() => setShowDeleteModal(true)} className="block w-full text-left px-3 py-1 hover:bg-neutral-200 dark:hover:bg-neutral-700">Delete Profile</button>
-        </div>
+              
+              <div className={`absolute top-8 right-4 w-fit bg-neutral-50 dark:bg-neutral-800 shadow-md p-1 text-neutral-800 dark:text-neutral-200 ${ showMenu ? 'block' : 'hidden'}`}>
+                <button onClick={handleLogout} className="block w-full text-left px-3 py-1 hover:bg-neutral-200 dark:hover:bg-neutral-700">Logout</button>
+                <button onClick={() => setShowDeleteModal(true)} className="block w-full text-left px-3 py-1 hover:bg-neutral-200 dark:hover:bg-neutral-700">Delete Profile</button>
+              </div>
+            </>)
+        }
       </div>
-      {showDeleteModal && isOwner && (
+      {showDeleteModal && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-end sm:items-center justify-center p-4">
           <div className="bg-white dark:bg-slate-800 rounded-t-xl sm:rounded-lg w-full sm:max-w-sm p-6 shadow-lg">
             <h2 className="text-lg font-semibold text-red-600 dark:text-red-400 mb-2">Delete Profile</h2>
