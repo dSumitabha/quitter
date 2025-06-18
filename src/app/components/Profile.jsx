@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 
 import Post from './Post';
 import UserInfo from './UserInfo';
+import PostSkeleton from './PostSkeleton';
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -88,7 +89,13 @@ const Profile = () => {
   );
 
   if (loading) {
-    return <div className="max-w-md mx-auto min-h-screen flex justify-center items-center ">Loading...</div>;
+    return (
+      <div className="max-w-md mx-auto pt-6">
+        {[...Array(5)].map((_, i) => (
+          <PostSkeleton key={i} />
+        ))}
+      </div>
+    );
   }
 
   if (error) {
