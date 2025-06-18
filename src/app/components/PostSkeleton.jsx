@@ -3,7 +3,7 @@
 export default function PostSkeleton(){
     return (
         <>
-            <div className="p-4 border-b border-gray-200 dark:border-slate-800 my-2 bg-white dark:bg-slate-950 shadow-sm animate-pulse">
+            <div className="p-4 border-b border-gray-200 dark:border-slate-800 my-2 bg-white dark:bg-slate-950 shadow-sm animate-pulse w-full">
                 <div className="flex items-center mb-2">
                     <div  className="w-14 h-14 bg-gray-200 dark:bg-slate-700 rounded-full mr-3" ></div>
                     <div>

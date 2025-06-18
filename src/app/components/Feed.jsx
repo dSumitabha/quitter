@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback, useMemo } from "react";
 import useIntersection from "../utils/IntersectionObserver";
 import Header from "./Header";
 import Post from "./Post";
+import PostSkeleton from "./PostSkeleton";
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
@@ -119,24 +120,35 @@ const Feed = () => {
     <>
       <Header selected={feedType} setSelected={setFeedType}/>
       <div className="max-w-md mx-auto pt-16">
-        {enrichedPosts.map((post, index) => (
-          <Post
-            key={post._id}
-            postId={post._id}
-            username={post.username}
-            content={post.content}
-            likes={post.likes}
-            createdAt={post.createdAt}
-            image={post.image}
-            bio={post.bio}          
-            isNew={feedType === 1}
-          />
-        ))}
+        {loading && posts.length === 0 ? (
+          <>
+            <PostSkeleton />
+            <PostSkeleton />
+            <PostSkeleton />
+            <PostSkeleton />
+            <PostSkeleton />
+          </>
+        ) : (
+          enrichedPosts.map((post, index) => (
+            <Post
+              key={post._id}
+              postId={post._id}
+              username={post.username}
+              content={post.content}
+              likes={post.likes}
+              createdAt={post.createdAt}
+              image={post.image}
+              bio={post.bio}
+              isNew={feedType === 1}
+            />
+          ))
+        )}
+
 
         {/* Intersection Observer Target */}
         {hasMore && (
-          <div ref={observerRef} className="w-full h-16 flex justify-center items-center text-gray-500">
-            {loading ? "Loading more posts..." : "Scroll down to load more"}
+          <div ref={observerRef} className="w-full min-h-16 flex justify-center items-center text-gray-500">
+            {loading ? "Loading" : "Scroll down to load more"}
           </div>
         )}
         
