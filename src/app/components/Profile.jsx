@@ -4,6 +4,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import Post from './Post';
 import UserInfo from './UserInfo';
 import PostSkeleton from './PostSkeleton';
+import UserInfoSkeleton from './UserInfoSkeleton';
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -90,11 +91,14 @@ const Profile = () => {
 
   if (loading) {
     return (
-      <div className="max-w-md mx-auto pt-6">
-        {[...Array(5)].map((_, i) => (
-          <PostSkeleton key={i} />
-        ))}
-      </div>
+      <>
+        <UserInfoSkeleton />
+        <div className="max-w-md mx-auto pt-6">
+          {[...Array(5)].map((_, i) => (
+            <PostSkeleton key={i} />
+          ))}
+        </div>
+      </>
     );
   }
 
