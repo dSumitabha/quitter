@@ -1,5 +1,3 @@
-'use client'
-
 export default function PostSkeleton(){
     return (
         <>
@@ -8,7 +6,7 @@ export default function PostSkeleton(){
                     <div  className="w-14 h-14 bg-gray-200 dark:bg-slate-700 rounded-full mr-3" ></div>
                     <div>
                         <div className="font-semibold text-gray-700 dark:text-slate-400 hover:text-blue-600 flex items-center " >
-                            <span className={`block ${Math.random() > 0.5 ? 'w-48' : 'w-40'} h-6 bg-gray-200 dark:bg-slate-700 rounded`}></span>
+                            <span className="block w-48 h-6 bg-gray-200 dark:bg-slate-700 rounded"></span>
                             <span className="block ml-2 w-6 h-6 bg-gray-200 dark:bg-slate-700 rounded"></span>
                         </div>
                         <div className="relative inline-block text-xs text-gray-500 dark:text-slate-500"  >
@@ -18,7 +16,7 @@ export default function PostSkeleton(){
                 </div>
                 <p className="text-slate-800 dark:text-slate-300 mb-2 w-full h-4 bg-gray-200 dark:bg-slate-700 rounded"></p>
                 <p className="text-slate-800 dark:text-slate-300 mb-2 w-full h-4 bg-gray-200 dark:bg-slate-700 rounded"></p>
-                <p className={`text-slate-800 dark:text-slate-300 mb-2 ${Math.random() > 0.5 ? 'w-2/3' : 'w-3/4'} h-4 bg-gray-200 dark:bg-slate-700 rounded`}></p>
+                <p className="text-slate-800 dark:text-slate-300 mb-2 w-3/4 h-4 bg-gray-200 dark:bg-slate-700 rounded"></p>
                 {/* <small className="text-xs">{postId}</small> */}
                 <div className="text-sm text-gray-500 dark:text-slate-50 flex items-center">
                     <span className="block w-6 h-6 rounded-full bg-gray-200 dark:bg-slate-800 mr-4 rounded"></span>
