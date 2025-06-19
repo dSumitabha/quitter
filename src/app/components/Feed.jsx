@@ -100,6 +100,11 @@ const Feed = () => {
     }
   }, [feedType, fetchPosts]);
 
+  //set the page number to 1 for every feed type change 
+  useEffect(() => {
+    setPage(1);
+  }, [feedType])
+
   // Enhanced memoized enriched posts with better error handling
   const enrichedPosts = useMemo(() => {
     return posts.map((post) => {
