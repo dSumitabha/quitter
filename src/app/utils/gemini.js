@@ -7,7 +7,7 @@ export async function callGeminiAPI(topics) {
 
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
   const model = genAI.getGenerativeModel({
-          model: "gemini-1.5-flash",
+          model: "gemini-2.5-flash",
           systemInstruction: "Always use the key 'username' to indicate the person who wrote the post. Never use 'user'."
    });
   const prompt = `Write posts on behalf of them, each within 24 words: ${usernames.join(", ")}. The response must be a JSON array. Don't use emoji.`;
